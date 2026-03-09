@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NWS Media — See If You Qualify</title>
+  <meta name="description" content="Apply to work with NWS Media. We build luxury websites, custom software, and video production for service businesses in 2-3 weeks.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NWS Media — See If You Qualify">
+  <meta property="og:description" content="Apply to work with NWS Media. Luxury websites, custom software, and video production for service businesses.">
+  <meta property="og:url" content="https://qualify.nwsmedia.com">
+  <meta property="og:image" content="https://nwsmedia.com/og-image.jpg">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- FOUC Prevention -->
+  <style>.js .anim-element { visibility: hidden; }</style>
+
+  <style>
+    /* ─── DESIGN TOKENS (matching main site) ─── */
+    :root {
+      --background: #0a0a0a;
+      --foreground: #fafafa;
+      --primary: #fafafa;
+      --primary-foreground: #18181b;
+      --secondary: #27272a;
+      --muted-foreground: #a1a1aa;
+      --border: #27272a;
+      --ring: #52525b;
+      --brand-blue: #3b82f6;
+      --brand-blue-dark: #1e3a8a;
+      --brand-blue-light: #bfdbfe;
+      --foreground-rgb: 250, 250, 250;
+      --brand-blue-rgb: 59, 130, 246;
+      --brand-blue-dark-rgb: 30, 58, 138;
+      --brand-blue-light-rgb: 191, 219, 254;
+      --border-rgb: 39, 39, 42;
+      --font-bebas: 'Bebas Neue', sans-serif;
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html, body { height: 100%; }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::selection { background: var(--brand-blue); color: var(--foreground); }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NOISE GRAIN (exact match) ─── */
+    #noise-grain {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+    }
+
+    /* ─── CUSTOM CURSOR (exact match) ─── */
+    #cursor-dot {
+      position: fixed; top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: var(--foreground);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      will-change: transform;
+      mix-blend-mode: difference;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(var(--brand-blue-rgb), 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      will-change: transform;
+      mix-blend-mode: difference;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.4s;
+    }
+    body.cursor-hover #cursor-dot { width: 14px; height: 14px; }
+    body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(var(--brand-blue-rgb), 0.8); }
+
+    /* ─── LOADER (exact match) ─── */
+    #loader-overlay {
+      position: fixed; inset: 0; z-index: 9000;
+      background: var(--background);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #loader-overlay.hide { opacity: 0; pointer-events: none; }
+    #loader-letters { display: flex; gap: 0.04em; position: relative; }
+    .loader-char {
+      font-family: var(--font-bebas);
+      font-size: clamp(120px, 20vw, 280px);
+      line-height: 0.88;
+      color: var(--foreground);
+      letter-spacing: -0.01em;
+      user-select: none;
+      transition: color 0.05s;
+    }
+    .loader-char.scrambling { color: rgba(var(--foreground-rgb), 0.6); }
+    .loader-accent-line {
+      position: absolute; bottom: -12px; left: 0;
+      height: 2px;
+      background: var(--brand-blue-light);
+      width: 0;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+    }
+    .loader-accent-line.show { width: 100%; }
+    .loader-tagline {
+      font-family: var(--font-outfit);
+      font-size: clamp(9px, 1vw, 11px);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--foreground);
+      opacity: 0;
+      margin-top: 36px;
+      transform: translateY(8px);
+      transition: opacity 0.7s 0.2s, transform 0.7s 0.2s;
+    }
+    .loader-tagline.show { opacity: 0.35; transform: translateY(0); }
+
+    /* ─── BACKGROUND AURA ─── */
+    .bg-aura {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 20% 18% at 25% 15%, rgba(59,130,246,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 18% 15% at 75% 70%, rgba(30,58,138,0.04) 0%, transparent 70%);
+    }
+
+    /* ─── LOGO ─── */
+    .logo {
+      font-family: var(--font-bebas);
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      color: var(--foreground);
+      user-select: none;
+    }
+
+    /* ─── FORM INPUTS ─── */
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      min-height: 48px;
+      background: rgba(var(--foreground-rgb), 0.03);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      font-size: 16px; /* Prevents iOS Safari auto-zoom on focus */
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .form-input::placeholder { color: var(--ring); }
+    .form-input:focus {
+      border-color: var(--brand-blue);
+      box-shadow: 0 0 0 3px rgba(var(--brand-blue-rgb), 0.12), 0 0 24px rgba(var(--brand-blue-rgb), 0.06);
+    }
+
+    /* Select arrow */
+    select.form-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 6l3.5 4 3.5-4z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 44px;
+      cursor: pointer;
+    }
+    select.form-input option { background: #141416; color: var(--foreground); }
+
+    /* ─── CHECKBOX GROUP ─── */
+    .checkbox-group { display: flex; flex-wrap: wrap; gap: 2px; }
+    .checkbox-label {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px;
+      min-height: 48px;
+      background: rgba(var(--foreground-rgb), 0.03);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+      font-size: 16px; /* Match input size — prevents iOS zoom */
+      color: var(--muted-foreground);
+      user-select: none;
+      flex: 1 1 auto;
+      min-width: 140px;
+    }
+    .checkbox-label:hover { border-color: #3f3f46; background: rgba(var(--foreground-rgb), 0.05); }
+    .checkbox-label.checked {
+      border-color: var(--brand-blue);
+      background: rgba(var(--brand-blue-rgb), 0.06);
+      color: var(--foreground);
+      box-shadow: 0 0 0 3px rgba(var(--brand-blue-rgb), 0.1);
+    }
+    .checkbox-label input[type="checkbox"] {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+    .check-box {
+      width: 18px; height: 18px;
+      border: 1.5px solid #3f3f46;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .checkbox-label.checked .check-box { border-color: var(--brand-blue); background: var(--brand-blue); }
+    .check-box svg { opacity: 0; transition: opacity 0.2s; }
+    .checkbox-label.checked .check-box svg { opacity: 1; }
+
+    /* ─── SUBMIT BUTTON ─── */
+    .submit-btn {
+      width: 100%;
+      padding: 20px 40px;
+      min-height: 56px;
+      background: var(--brand-blue);
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: 1px solid var(--brand-blue);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s, box-shadow 0.4s;
+    }
+    .submit-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: var(--brand-blue-dark);
+      transform: translateX(-101%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+    .submit-btn:hover {
+      color: var(--foreground);
+      box-shadow: 0 0 24px rgba(var(--brand-blue-rgb), 0.3), 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .submit-btn:hover::before { transform: translateX(0); }
+    .submit-btn span { position: relative; z-index: 1; }
+
+    /* ─── FORM CARD (bento effect) ─── */
+    .form-card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transform-style: preserve-3d;
+      will-change: transform;
+      background: rgba(var(--foreground-rgb), 0.02);
+      -webkit-backdrop-filter: blur(12px) saturate(1.2);
+      backdrop-filter: blur(12px) saturate(1.2);
+      border: 1px solid rgba(var(--foreground-rgb), 0.06);
+      background-image:
+        linear-gradient(135deg, rgba(var(--foreground-rgb), 0.03) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(var(--brand-blue-dark-rgb), 0.06) 0%, transparent 60%);
+      transition: transform 0.45s cubic-bezier(0.03, 0.98, 0.52, 0.99),
+                  border-color 0.5s, box-shadow 0.5s;
+    }
+    .form-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(var(--foreground-rgb), 0.015) 0%, transparent 40%, rgba(0,0,0,0.1) 100%);
+      pointer-events: none; z-index: 0;
+    }
+    .form-card:hover {
+      border-color: rgba(var(--foreground-rgb), 0.12);
+      box-shadow: 0 8px 32px rgba(var(--brand-blue-dark-rgb), 0.2),
+                  0 0 0 1px rgba(var(--foreground-rgb), 0.04) inset;
+    }
+    .bento-spotlight {
+      position: absolute; inset: 0; z-index: 0;
+      opacity: 0; transition: opacity 0.4s;
+      pointer-events: none;
+      background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(var(--brand-blue-dark-rgb), 0.15) 0%, transparent 70%);
+    }
+    .form-card:hover .bento-spotlight { opacity: 1; }
+    .bento-border-glow {
+      position: absolute; inset: -1px; z-index: -1;
+      opacity: 0; transition: opacity 0.5s;
+      pointer-events: none;
+      background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(var(--brand-blue-rgb), 0.4) 0%, transparent 70%);
+    }
+    .form-card:hover .bento-border-glow { opacity: 1; }
+
+    /* ─── STAT PILLS ─── */
+    .stat-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px;
+      background: rgba(var(--brand-blue-rgb), 0.06);
+      border: 1px solid rgba(var(--brand-blue-rgb), 0.12);
+      font-size: 0.75rem; font-weight: 500;
+      color: rgba(var(--brand-blue-light-rgb), 0.8);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .stat-pill .dot {
+      width: 6px; height: 6px;
+      background: var(--brand-blue);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    /* ─── FIELD LABEL ─── */
+    .field-label {
+      display: block;
+      font-size: 9px; font-weight: 400;
+      color: var(--muted-foreground);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ─── DIVIDER ─── */
+    .form-divider {
+      height: 1px;
+      background: rgba(var(--foreground-rgb), 0.06);
+      margin: 8px 0;
+    }
+
+    /* ─── TRUST SIGNAL ─── */
+    .trust-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      color: rgba(var(--foreground-rgb), 0.25);
+      font-size: 0.78rem; line-height: 1.5;
+    }
+    .trust-row svg { flex-shrink: 0; margin-top: 2px; }
+
+    /* ─── SPLIT CHARS ─── */
+    .line-mask { overflow: hidden; display: inline-block; vertical-align: top; line-height: inherit; }
+    .split-char { display: inline-block; }
+    /* Word wrappers created by splitIntoMaskedChars preserve natural line-break points */
+    .blur-word { display: inline-block; }
+
+    /* ─── ACCESSIBILITY — Focus visible ─── */
+    :focus-visible {
+      outline: 2px solid rgba(var(--brand-blue-rgb), 0.8);
+      outline-offset: 3px;
+    }
+    .form-input:focus-visible {
+      outline: 2px solid rgba(var(--brand-blue-rgb), 0.8);
+      outline-offset: 2px;
+    }
+    .submit-btn:focus-visible {
+      outline: 2px solid var(--foreground);
+      outline-offset: 3px;
+    }
+    .checkbox-label:focus-within {
+      border-color: rgba(var(--brand-blue-rgb), 0.6);
+      box-shadow: 0 0 0 3px rgba(var(--brand-blue-rgb), 0.12);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1023px) {
+      /* Tablet: disable 3D tilt, keep backdrop-filter */
+      .form-card { transform: none !important; }
+    }
+    @media (max-width: 768px) {
+      #cursor-dot, #cursor-ring { display: none; }
+      body { cursor: auto; }
+      .checkbox-label { min-width: 100%; }
+      .form-card { transform: none !important; -webkit-backdrop-filter: none; backdrop-filter: none; }
+      .stat-pill { font-size: 0.68rem; padding: 6px 12px; }
+    }
+    @media (max-width: 380px) {
+      /* Very small phones */
+      .form-input { padding: 12px 14px; }
+      .checkbox-label { padding: 12px 14px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #cursor-dot, #cursor-ring { display: none !important; }
+      body { cursor: auto !important; }
+      .js .anim-element { visibility: visible !important; opacity: 1 !important; }
+      .blur-word, .split-char { opacity: 1 !important; filter: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ═══ NOISE GRAIN ═══ -->
+  <div id="noise-grain"></div>
+
+  <!-- ═══ LOADER / INTRO OVERLAY ═══ -->
+  <div id="loader-overlay">
+    <div id="loader-letters">
+      <span class="loader-char">N</span>
+      <span class="loader-char">W</span>
+      <span class="loader-char">S</span>
+      <div class="loader-accent-line"></div>
+    </div>
+    <div class="loader-tagline">Limitless Creation &mdash; We Build What You Imagine</div>
+  </div>
+
+  <!-- ═══ BACKGROUND AURA ═══ -->
+  <div class="bg-aura"></div>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="relative z-10 min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- Header — Logo only, no nav links -->
+    <header class="w-full px-4 sm:px-10 py-5 sm:py-6 flex items-center justify-center anim-element">
+      <span class="logo" data-cursor-hover>NWS MEDIA</span>
+    </header>
+
+    <!-- Hero + Form -->
+    <main class="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 pb-12 sm:pb-20 pt-6 sm:pt-8 lg:pt-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+        <!-- ═══ LEFT: COPY ═══ -->
+        <div class="pt-0 lg:pt-10 max-w-full lg:max-w-2xl min-w-0">
+
+          <!-- Stat pills -->
+          <div class="flex flex-wrap gap-2 mb-8 sm:mb-10 anim-element">
+            <div class="stat-pill"><span class="dot"></span> 2-3 Week Avg. Turnaround</div>
+            <div class="stat-pill"><span class="dot"></span> Revenue-First Approach</div>
+          </div>
+
+          <!-- Headline (will be char-split by GSAP) -->
+          <h1 id="hero-headline" class="font-bebas text-4xl md:text-5xl lg:text-7xl leading-[0.9] tracking-wide mb-6 sm:mb-7 break-words anim-element" style="text-transform: uppercase; text-wrap: balance; word-break: normal; overflow-wrap: break-word; hyphens: none;">
+            Stop Losing Customers<br>
+            To A Website That<br>
+            <span style="color: var(--brand-blue-light);">Doesn't Convert.</span>
+          </h1>
+
+          <!-- Sub copy -->
+          <p id="hero-sub" class="font-outfit text-base sm:text-[1.05rem] leading-relaxed max-w-full sm:max-w-[420px] mb-10 sm:mb-12 anim-element" style="color: rgba(var(--foreground-rgb), 0.5); font-weight: 300;">
+            We build luxury websites, custom in-house software, lead scrapers, and professional video
+            for <strong style="color: var(--foreground); font-weight: 600;">contractors, dentists, med spas, law firms,</strong> and
+            <strong style="color: var(--foreground); font-weight: 600;">e-commerce brands</strong>
+            &mdash; engineered to generate revenue in 2-3 weeks, not just look good.
+          </p>
+
+          <!-- Trust bullets -->
+          <div class="space-y-4 sm:space-y-5 anim-element" data-animate="bullets">
+            <div class="flex items-start gap-3">
+              <svg class="mt-[3px] flex-shrink-0" style="color: var(--brand-blue);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="color: rgba(var(--foreground-rgb), 0.5); font-size: 0.88rem; line-height: 1.7;"><strong style="color: var(--foreground); font-weight: 500;">Audit-First:</strong> We show you exactly where you're bleeding money before you sign anything.</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="mt-[3px] flex-shrink-0" style="color: var(--brand-blue);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="color: rgba(var(--foreground-rgb), 0.5); font-size: 0.88rem; line-height: 1.7;"><strong style="color: var(--foreground); font-weight: 500;">Owner-Operated:</strong> Direct access to the senior talent doing the work. No middlemen. No hand-offs.</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="mt-[3px] flex-shrink-0" style="color: var(--brand-blue);" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span style="color: rgba(var(--foreground-rgb), 0.5); font-size: 0.88rem; line-height: 1.7;"><strong style="color: var(--foreground); font-weight: 500;">Vertical Experts:</strong> Built specifically for local service businesses in major metros. We know your market.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ RIGHT: FORM CARD ═══ -->
+        <div class="form-card anim-element w-full max-w-lg lg:max-w-none mx-auto lg:mx-0" id="form-card" data-cursor-hover>
+          <div class="bento-spotlight"></div>
+          <div class="bento-border-glow"></div>
+
+          <div class="relative z-10 p-5 sm:p-8 lg:p-10">
+            <!-- Card header -->
+            <div class="mb-1">
+              <span style="font-family: var(--font-outfit); font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(var(--brand-blue-light-rgb), 0.8);">Limited Availability</span>
+            </div>
+            <h2 class="font-bebas text-2xl sm:text-3xl tracking-wide mb-1" style="text-transform: uppercase;">Apply To Work With Us</h2>
+            <p style="color: var(--muted-foreground); font-size: 0.85rem; margin-bottom: 2rem;">Fill out the form below and we'll be in touch within 24 hours.</p>
+
+            <form id="qualify-form" novalidate>
+              <div class="space-y-5">
+
+                <!-- Full Name -->
+                <div>
+                  <label class="field-label" for="full-name">Full Name</label>
+                  <input type="text" id="full-name" name="fullName" class="form-input" placeholder="John Smith" required autocomplete="name">
+                </div>
+
+                <!-- Work Email -->
+                <div>
+                  <label class="field-label" for="work-email">Work Email</label>
+                  <input type="email" id="work-email" name="email" class="form-input" placeholder="john@yourbusiness.com" required autocomplete="email">
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                  <label class="field-label" for="phone">Phone Number</label>
+                  <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" required autocomplete="tel">
+                </div>
+
+                <div class="form-divider"></div>
+
+                <!-- Business Type -->
+                <div>
+                  <label class="field-label" for="business-type">Business Type</label>
+                  <select id="business-type" name="businessType" class="form-input" required>
+                    <option value="" disabled selected>Select your industry</option>
+                    <option value="contractor">Contractor</option>
+                    <option value="dentist">Dentist</option>
+                    <option value="medspa">Med Spa</option>
+                    <option value="law-firm">Law Firm</option>
+                    <option value="real-estate">Real Estate</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <!-- Service Needed (Checkboxes) -->
+                <div>
+                  <span class="field-label" id="services-label">Service Needed</span>
+                  <div class="checkbox-group" role="group" aria-labelledby="services-label">
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="services" value="web-design">
+                      <span class="check-box">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      Web Design
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="services" value="custom-software">
+                      <span class="check-box">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      Custom Software
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="services" value="lead-scraper">
+                      <span class="check-box">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      Lead Scraper
+                    </label>
+                    <label class="checkbox-label">
+                      <input type="checkbox" name="services" value="video-production">
+                      <span class="check-box">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </span>
+                      Video Production
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-divider"></div>
+
+                <!-- Project Timeline -->
+                <div>
+                  <label class="field-label" for="timeline">Project Timeline</label>
+                  <select id="timeline" name="timeline" class="form-input" required>
+                    <option value="" disabled selected>When do you need this?</option>
+                    <option value="asap">ASAP</option>
+                    <option value="2-3-weeks">2-3 Weeks</option>
+                    <option value="1-2-months">1-2 Months</option>
+                    <option value="exploring">Just Exploring</option>
+                  </select>
+                </div>
+
+                <!-- Estimated Budget -->
+                <div>
+                  <label class="field-label" for="budget">Estimated Budget</label>
+                  <select id="budget" name="budget" class="form-input" required>
+                    <option value="" disabled selected>Select your budget range</option>
+                    <option value="under-3000">Under $3,000</option>
+                    <option value="3000-5000">$3,000 - $5,000</option>
+                    <option value="5000-10000">$5,000 - $10,000</option>
+                    <option value="10000-plus">$10,000+</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="submit-btn mt-8" data-cursor-hover>
+                <span>Apply To Work With Us</span>
+              </button>
+
+              <!-- Trust Signal -->
+              <div class="trust-row mt-5">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <span>Your information is secure. We typically respond within 24 hours if you aren't redirected immediately.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Minimal Footer -->
+    <footer class="w-full px-4 sm:px-6 py-6 sm:py-8 text-center anim-element">
+      <p style="font-family: var(--font-outfit); font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(var(--foreground-rgb), 0.2);">&copy; 2026 NWS Media. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+  'use strict';
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     NWS MEDIA — QUALIFY PAGE SCRIPT
+     Loader | Cursor | Bento Tilt | Text Reveal | Form Routing
+     ═══════════════════════════════════════════════════════════════════════════ */
+
+  // ─── CONFIG ─────────────────────────────────────────────────────────────
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&!?<>';
+  const NWS_LETTERS = ['N', 'W', 'S'];
+  const SCRAMBLE_ROUNDS = 14;
+  const SCRAMBLE_STEP = 50;
+  const SCRAMBLE_DELAY = 140;
+
+  // ─── HELPERS ────────────────────────────────────────────────────────────
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const rChar = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+
+  // ─── STATE ──────────────────────────────────────────────────────────────
+  let mouseX = -100, mouseY = -100;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     1. CURSOR — High-performance via GSAP quickSetter
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function initCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    const setDotX = gsap.quickSetter(dot, 'x', 'px');
+    const setDotY = gsap.quickSetter(dot, 'y', 'px');
+    const setRingX = gsap.quickSetter(ring, 'x', 'px');
+    const setRingY = gsap.quickSetter(ring, 'y', 'px');
+
+    let ringX = -100, ringY = -100;
+    const dotOff = () => dot.offsetWidth / 2;
+    const ringOff = () => ring.offsetWidth / 2;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    gsap.ticker.add(() => {
+      setDotX(mouseX - dotOff());
+      setDotY(mouseY - dotOff());
+      ringX = lerp(ringX, mouseX, 0.12);
+      ringY = lerp(ringY, mouseY, 0.12);
+      setRingX(ringX - ringOff());
+      setRingY(ringY - ringOff());
+    });
+
+    // Hover state
+    const targets = 'a, button, select, [data-cursor-hover]';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(targets)) document.body.classList.add('cursor-hover');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(targets)) document.body.classList.remove('cursor-hover');
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     2. LOADER — Text scramble → accent line → tagline → fade out
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function runLoader() {
+    return new Promise((resolve) => {
+      const overlay = document.getElementById('loader-overlay');
+      const chars = document.querySelectorAll('.loader-char');
+      const accentLine = document.querySelector('.loader-accent-line');
+      const tagline = document.querySelector('.loader-tagline');
+
+      if (!overlay || chars.length === 0) { resolve(); return; }
+
+      let completed = 0;
+
+      chars.forEach((span, i) => {
+        let frame = 0;
+        setTimeout(() => {
+          const iv = setInterval(() => {
+            if (frame < SCRAMBLE_ROUNDS) {
+              span.textContent = rChar();
+              span.classList.add('scrambling');
+              frame++;
+            } else {
+              clearInterval(iv);
+              span.textContent = NWS_LETTERS[i];
+              span.classList.remove('scrambling');
+              completed++;
+              if (completed === chars.length) {
+                setTimeout(() => {
+                  if (accentLine) accentLine.classList.add('show');
+                  if (tagline) tagline.classList.add('show');
+                  setTimeout(() => {
+                    overlay.classList.add('hide');
+                    setTimeout(resolve, 900);
+                  }, 1200);
+                }, 200);
+              }
+            }
+          }, SCRAMBLE_STEP);
+        }, i * SCRAMBLE_DELAY);
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     3. BENTO TILT — 3D tilt + spotlight tracking on form card
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function initBentoTilt() {
+    const card = document.getElementById('form-card');
+    if (!card) return;
+    const TILT_MAX = 4;
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const nx = (x - cx) / cx;
+      const ny = (y - cy) / cy;
+
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+
+      gsap.to(card, {
+        rotateY: nx * TILT_MAX,
+        rotateX: -ny * TILT_MAX,
+        duration: 0.45,
+        ease: 'power2.out',
+        overwrite: 'auto',
+      });
+    });
+
+    card.addEventListener('mouseleave', () => {
+      gsap.to(card, {
+        rotateX: 0, rotateY: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.5)',
+        overwrite: 'auto',
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     4. TEXT REVEAL — Masked character slide-up for headline
+     ═══════════════════════════════════════════════════════════════════════════ */
+  // Split text into words first, then chars within each word.
+  // Each word is wrapped in an inline-block span so the browser
+  // treats it as one unit for line-wrapping (no mid-word breaks).
+  // Inside each word, chars get overflow:hidden masks for the slide-up.
+  function splitTextNodeIntoWordChars(textContent, container, chars) {
+    const parts = textContent.split(/(\s+)/);
+    parts.forEach(part => {
+      if (/^\s+$/.test(part)) {
+        container.appendChild(document.createTextNode(part));
+      } else if (part) {
+        // Wrap the whole word in an inline-block so it won't break mid-word
+        const wordWrap = document.createElement('span');
+        wordWrap.style.display = 'inline-block';
+        wordWrap.style.whiteSpace = 'nowrap';
+        for (let i = 0; i < part.length; i++) {
+          const mask = document.createElement('span');
+          mask.className = 'line-mask';
+          const span = document.createElement('span');
+          span.className = 'split-char';
+          span.textContent = part[i];
+          mask.appendChild(span);
+          wordWrap.appendChild(mask);
+          chars.push(span);
+        }
+        container.appendChild(wordWrap);
+      }
+    });
+  }
+
+  function splitIntoMaskedChars(el) {
+    const chars = [];
+    const fragment = document.createDocumentFragment();
+
+    el.childNodes.forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        fragment.appendChild(document.createElement('br'));
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        splitTextNodeIntoWordChars(node.textContent, fragment, chars);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        // Recurse into child elements (e.g. the blue <span>)
+        const wrapper = node.cloneNode(false);
+        node.childNodes.forEach(inner => {
+          if (inner.nodeType === Node.TEXT_NODE) {
+            splitTextNodeIntoWordChars(inner.textContent, wrapper, chars);
+          } else if (inner.nodeType === Node.ELEMENT_NODE && inner.tagName === 'BR') {
+            wrapper.appendChild(document.createElement('br'));
+          }
+        });
+        fragment.appendChild(wrapper);
+      }
+    });
+
+    el.innerHTML = '';
+    el.appendChild(fragment);
+    return chars;
+  }
+
+  function splitIntoWords(el) {
+    const fragment = document.createDocumentFragment();
+    const words = [];
+
+    el.childNodes.forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        fragment.appendChild(document.createElement('br'));
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        const parts = node.textContent.split(/(\s+)/);
+        parts.forEach(part => {
+          if (/^\s+$/.test(part)) {
+            fragment.appendChild(document.createTextNode(' '));
+          } else if (part) {
+            const span = document.createElement('span');
+            span.className = 'blur-word';
+            span.textContent = part;
+            fragment.appendChild(span);
+            words.push(span);
+          }
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const clone = node.cloneNode(true);
+        clone.classList.add('blur-word');
+        fragment.appendChild(clone);
+        words.push(clone);
+      }
+    });
+
+    el.innerHTML = '';
+    el.appendChild(fragment);
+    return words;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     5. PAGE ENTRANCE ANIMATION — Awwwards-tier stagger reveal
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function animatePage() {
+    if (typeof gsap === 'undefined') return;
+
+    // Make all anim-elements visible but start from hidden state
+    const allElements = document.querySelectorAll('.anim-element');
+    gsap.set(allElements, { visibility: 'visible' });
+
+    // Respect prefers-reduced-motion — show everything instantly, skip animations
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const h = document.getElementById('hero-headline');
+      const s = document.getElementById('hero-sub');
+      if (h) h.style.visibility = 'visible';
+      if (s) s.style.visibility = 'visible';
+      return;
+    }
+
+    const masterTL = gsap.timeline({ delay: 0.1 });
+
+    // 1. Logo — blur fade
+    masterTL.fromTo('header.anim-element',
+      { opacity: 0, y: -20, filter: 'blur(8px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }
+    );
+
+    // 2. Stat pills — blur fade
+    const pills = document.querySelector('.flex.flex-wrap.anim-element');
+    if (pills) {
+      masterTL.fromTo(pills,
+        { opacity: 0, y: 15, filter: 'blur(6px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' },
+        '-=0.3'
+      );
+    }
+
+    // 3. Headline — character-by-character masked slide up
+    const headline = document.getElementById('hero-headline');
+    if (headline) {
+      headline.style.visibility = 'visible';
+      const chars = splitIntoMaskedChars(headline);
+      if (chars.length) {
+        gsap.set(chars, { yPercent: 110 });
+        masterTL.to(chars, {
+          yPercent: 0,
+          duration: 1.0,
+          stagger: 0.015,
+          ease: 'power4.out',
+        }, '-=0.2');
+      }
+    }
+
+    // 4. Sub copy — word blur reveal
+    const subEl = document.getElementById('hero-sub');
+    if (subEl) {
+      const words = splitIntoWords(subEl);
+      gsap.set(words, { opacity: 0, y: -20, filter: 'blur(8px)' });
+      subEl.style.visibility = 'visible';
+      masterTL.to(words, {
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        duration: 0.6, stagger: 0.025, ease: 'power2.out',
+      }, '-=0.5');
+    }
+
+    // 5. Trust bullets — staggered blur fade
+    const bullets = document.querySelector('[data-animate="bullets"]');
+    if (bullets) {
+      const items = bullets.querySelectorAll('.flex.items-start');
+      masterTL.fromTo(items,
+        { opacity: 0, x: -20, filter: 'blur(6px)' },
+        { opacity: 1, x: 0, filter: 'blur(0px)', duration: 0.6, stagger: 0.1, ease: 'power3.out' },
+        '-=0.3'
+      );
+    }
+
+    // 6. Form card — scale + blur entrance
+    const formCard = document.getElementById('form-card');
+    if (formCard) {
+      masterTL.fromTo(formCard,
+        { opacity: 0, y: 60, scale: 0.96, filter: 'blur(10px)' },
+        { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.0, ease: 'power4.out' },
+        '-=1.2'
+      );
+
+      // Stagger the form fields inside
+      const formFields = formCard.querySelectorAll('.space-y-5 > div, .form-divider, .checkbox-group');
+      masterTL.fromTo(formFields,
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.04, ease: 'power3.out' },
+        '-=0.6'
+      );
+
+      // Submit button last
+      const submitBtn = formCard.querySelector('.submit-btn');
+      if (submitBtn) {
+        masterTL.fromTo(submitBtn,
+          { opacity: 0, y: 10, filter: 'blur(4px)' },
+          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.6, ease: 'power3.out' },
+          '-=0.3'
+        );
+      }
+    }
+
+    // 7. Footer
+    masterTL.fromTo('footer.anim-element',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: 'power2.out' },
+      '-=0.3'
+    );
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     6. CHECKBOX TOGGLE
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function initCheckboxes() {
+    document.querySelectorAll('.checkbox-label').forEach(label => {
+      const checkbox = label.querySelector('input[type="checkbox"]');
+
+      label.addEventListener('click', (e) => {
+        if (e.target === checkbox) return; // Let native checkbox handle its own clicks
+        e.preventDefault();
+        checkbox.checked = !checkbox.checked;
+        label.classList.toggle('checked', checkbox.checked);
+      });
+
+      // Sync visual state when checkbox changes (keyboard, assistive tech)
+      checkbox.addEventListener('change', () => {
+        label.classList.toggle('checked', checkbox.checked);
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     7. FORM SUBMISSION + BUDGET ROUTING LOGIC
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function initFormRouting() {
+    document.getElementById('qualify-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const budget = form.budget.value;
+
+      // Validate required fields
+      const required = form.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value) {
+          field.style.borderColor = '#ef4444';
+          field.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+          valid = false;
+          const clearError = () => {
+            field.style.borderColor = '';
+            field.style.boxShadow = '';
+          };
+          field.addEventListener('input', clearError, { once: true });
+          field.addEventListener('change', clearError, { once: true });
+        }
+      });
+
+      if (!valid) return;
+
+      // Collect checked services
+      const services = [];
+      form.querySelectorAll('input[name="services"]:checked').forEach(cb => {
+        services.push(cb.value);
+      });
+
+      // Submit to Formspree
+      const data = {
+        _subject: 'New Qualification Submission — NWS Media',
+        fullName: form.fullName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        businessType: form.businessType.value,
+        services: services.join(', '),
+        timeline: form.timeline.value,
+        budget: form.budget.value,
+        source: 'qualify'
+      };
+
+      fetch('https://formspree.io/f/mojkjqoe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(res => {
+        if (!res.ok) console.warn('Formspree submission issue:', res.status);
+      }).catch(err => {
+        console.warn('Formspree error:', err);
+      });
+
+      // Budget-based routing
+      if (budget === 'under-3000') {
+        window.location.href = 'under-review.html';
+      } else {
+        window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     INIT — Orchestrate everything
+     ═══════════════════════════════════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', async () => {
+    // GSAP failsafe — if CDN fails, show everything and init form
+    if (typeof gsap === 'undefined') {
+      document.querySelectorAll('.anim-element').forEach(el => {
+        el.style.visibility = 'visible';
+      });
+      const h = document.getElementById('hero-headline');
+      const s = document.getElementById('hero-sub');
+      if (h) h.style.visibility = 'visible';
+      if (s) s.style.visibility = 'visible';
+      const overlay = document.getElementById('loader-overlay');
+      if (overlay) overlay.style.display = 'none';
+      initCheckboxes();
+      initFormRouting();
+      return;
+    }
+
+    // Start cursor immediately (runs during loader)
+    initCursor();
+
+    // Run loader → then reveal page
+    await runLoader();
+
+    // Animate all page elements with staggered reveals
+    animatePage();
+
+    // Interactive features
+    initBentoTilt();
+    initCheckboxes();
+    initFormRouting();
+  });
+  </script>
+</body>
+</html>

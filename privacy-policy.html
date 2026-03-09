@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — NWS Media</title>
+  <meta name="description" content="NWS Media Privacy Policy. Learn how we collect, use, and protect your personal information.">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="canonical" href="https://nwsmedia.com/privacy-policy">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --background: #0a0a0a;
+      --foreground: #fafafa;
+      --muted-foreground: #a1a1aa;
+      --border: #27272a;
+      --brand-blue: #3b82f6;
+      --brand-blue-dark: #1e3a8a;
+      --brand-blue-light: #bfdbfe;
+      --foreground-rgb: 250, 250, 250;
+      --brand-blue-rgb: 59, 130, 246;
+      --font-bebas: 'Bebas Neue', sans-serif;
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--brand-blue); color: var(--foreground); }
+    a { color: inherit; text-decoration: none; }
+
+    #noise-grain {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+    }
+
+    .legal-header {
+      border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+    }
+    .legal-logo {
+      font-family: var(--font-bebas);
+      font-size: 1.25rem;
+      letter-spacing: 0.12em;
+      color: var(--foreground);
+      transition: color 0.3s;
+    }
+    .legal-logo:hover { color: var(--brand-blue-light); }
+    .legal-back {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+      display: flex; align-items: center; gap: 10px;
+      transition: color 0.3s;
+    }
+    .legal-back:hover { color: var(--foreground); }
+    .legal-back-arrow {
+      width: 24px; height: 1px;
+      background: var(--muted-foreground);
+      transition: width 0.3s, background 0.3s;
+    }
+    .legal-back:hover .legal-back-arrow { width: 36px; background: var(--foreground); }
+
+    .legal-body h2 {
+      font-family: var(--font-bebas);
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--foreground);
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+    }
+
+    .legal-body p, .legal-body li {
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+      line-height: 1.9;
+      color: rgba(var(--foreground-rgb), 0.55);
+    }
+
+    .legal-body ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .legal-body li {
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .legal-body li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      font-size: 10px;
+      opacity: 0.5;
+      top: 9px;
+    }
+
+    .legal-body strong { color: var(--foreground); font-weight: 500; }
+    .legal-body a { color: var(--brand-blue-light); transition: color 0.3s; }
+    .legal-body a:hover { color: var(--brand-blue); }
+
+    .legal-footer {
+      border-top: 1px solid rgba(var(--foreground-rgb), 0.06);
+    }
+
+    :focus-visible {
+      outline: 2px solid rgba(var(--brand-blue-rgb), 0.8);
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="noise-grain"></div>
+
+  <div class="relative z-10 min-h-screen flex flex-col">
+
+    <header class="legal-header w-full px-6 sm:px-10 py-5 flex items-center justify-between">
+      <a href="index.html" class="legal-logo">NWS</a>
+      <a href="index.html" class="legal-back">
+        <span class="legal-back-arrow"></span>
+        Back to Home
+      </a>
+    </header>
+
+    <main class="flex-1 w-full max-w-[760px] mx-auto px-6 sm:px-10 py-12 sm:py-20">
+
+      <div class="mb-4">
+        <span class="font-outfit text-[9px] tracking-[0.35em] uppercase" style="color: var(--muted-foreground);">Legal</span>
+      </div>
+      <h1 class="font-bebas text-[clamp(2.5rem,6vw,4rem)] leading-[0.92] tracking-[-0.01em] uppercase mb-3">Privacy Policy</h1>
+      <p class="font-outfit text-sm" style="color: var(--muted-foreground);">Last updated: March 8, 2026</p>
+
+      <div class="legal-body mt-10">
+
+        <h2>1. Introduction</h2>
+        <p>
+          NWS Media ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <strong>nwsmedia.com</strong> and any related pages, services, or tools (collectively, the "Site"). By accessing or using the Site, you agree to the terms of this Privacy Policy. If you do not agree, please discontinue use of the Site immediately.
+        </p>
+
+        <h2>2. Information We Collect</h2>
+        <p>We may collect the following types of information:</p>
+        <p><strong>Personal Information You Provide:</strong></p>
+        <ul>
+          <li>Full name</li>
+          <li>Email address</li>
+          <li>Phone number</li>
+          <li>Business name and industry</li>
+          <li>Website URL</li>
+          <li>Budget range and project timeline preferences</li>
+          <li>Any additional information submitted through our qualification form or contact channels</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Automatically Collected Information:</strong></p>
+        <ul>
+          <li>IP address and approximate geographic location</li>
+          <li>Browser type, operating system, and device information</li>
+          <li>Pages visited, time spent, and navigation patterns</li>
+          <li>Referring URL and exit pages</li>
+          <li>Cookies and similar tracking technologies</li>
+        </ul>
+
+        <h2>3. How We Use Your Information</h2>
+        <p>We use the information we collect to:</p>
+        <ul>
+          <li>Respond to your inquiries and process service requests</li>
+          <li>Schedule discovery calls and deliver website audits</li>
+          <li>Provide, maintain, and improve our services</li>
+          <li>Send project updates, proposals, and follow-up communications</li>
+          <li>Send marketing communications (only with your consent; you can opt out at any time)</li>
+          <li>Analyze website traffic and user behavior to improve the Site experience</li>
+          <li>Detect and prevent fraud or unauthorized access</li>
+          <li>Comply with legal obligations</li>
+        </ul>
+
+        <h2>4. Cookies & Tracking Technologies</h2>
+        <p>
+          We use cookies and similar technologies to enhance your experience on the Site. Cookies are small data files stored on your device that help us remember your preferences and understand how you interact with our content.
+        </p>
+        <p style="margin-top: 1rem;"><strong>Types of cookies we use:</strong></p>
+        <ul>
+          <li><strong>Essential Cookies:</strong> Required for the Site to function properly (e.g., session management).</li>
+          <li><strong>Analytics Cookies:</strong> Help us understand traffic patterns and improve the Site (e.g., Google Analytics).</li>
+          <li><strong>Marketing Cookies:</strong> Used to deliver relevant advertising and measure campaign performance.</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          You can control cookie preferences through your browser settings. Disabling certain cookies may impact your experience on the Site.
+        </p>
+
+        <h2>5. Third-Party Services</h2>
+        <p>We may share your information with trusted third-party service providers who assist us in operating the Site and delivering services, including:</p>
+        <ul>
+          <li><strong>Calendly</strong> — for scheduling discovery calls</li>
+          <li><strong>Google Analytics</strong> — for website traffic analysis</li>
+          <li><strong>Vercel / Cloudflare</strong> — for hosting and content delivery</li>
+          <li><strong>Email service providers</strong> — for sending communications</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          These providers are contractually obligated to protect your information and may only use it to perform services on our behalf. We do not sell your personal information to third parties.
+        </p>
+
+        <h2>6. Data Retention</h2>
+        <p>
+          We retain your personal information only as long as necessary to fulfill the purposes outlined in this policy, comply with legal obligations, resolve disputes, and enforce our agreements. Form submissions and lead data are typically retained for up to <strong>24 months</strong> unless you request earlier deletion.
+        </p>
+
+        <h2>7. Data Security</h2>
+        <p>
+          We implement industry-standard security measures to protect your personal information, including SSL/TLS encryption, secure hosting infrastructure, and access controls. However, no method of transmission over the internet is 100% secure. While we strive to protect your data, we cannot guarantee absolute security.
+        </p>
+
+        <h2>8. Your Rights</h2>
+        <p>Depending on your jurisdiction, you may have the following rights regarding your personal information:</p>
+        <ul>
+          <li><strong>Access:</strong> Request a copy of the personal data we hold about you.</li>
+          <li><strong>Correction:</strong> Request correction of inaccurate or incomplete data.</li>
+          <li><strong>Deletion:</strong> Request deletion of your personal data.</li>
+          <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications at any time.</li>
+          <li><strong>Data Portability:</strong> Request transfer of your data in a structured, machine-readable format.</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          To exercise any of these rights, contact us at <a href="mailto:info@nwsmedia.com">info@nwsmedia.com</a>.
+        </p>
+
+        <h2>9. Children's Privacy</h2>
+        <p>
+          Our Site is not intended for individuals under the age of 18. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such information, please contact us immediately and we will promptly delete it.
+        </p>
+
+        <h2>10. Changes to This Policy</h2>
+        <p>
+          We reserve the right to update this Privacy Policy at any time. Changes will be posted on this page with an updated "Last updated" date. Your continued use of the Site after any modifications constitutes acceptance of the revised policy. We encourage you to review this page periodically.
+        </p>
+
+        <h2>11. Contact Us</h2>
+        <p>
+          If you have any questions about this Privacy Policy or our data practices, please contact us at:
+        </p>
+        <p style="margin-top: 1rem;">
+          <strong>NWS Media</strong><br>
+          Email: <a href="mailto:info@nwsmedia.com">info@nwsmedia.com</a><br>
+          Website: <a href="https://nwsmedia.com">nwsmedia.com</a>
+        </p>
+
+      </div>
+    </main>
+
+    <footer class="legal-footer w-full px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-outfit text-[9px] tracking-[0.15em] uppercase" style="color: rgba(var(--foreground-rgb), 0.2);">&copy; 2026 NWS Media. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="privacy-policy.html" class="font-outfit text-[9px] tracking-[0.15em] uppercase" style="color: rgba(var(--foreground-rgb), 0.35); transition: color 0.3s;">Privacy Policy</a>
+        <a href="terms-of-service.html" class="font-outfit text-[9px] tracking-[0.15em] uppercase" style="color: rgba(var(--foreground-rgb), 0.2); transition: color 0.3s;">Terms of Service</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof gsap === 'undefined') return;
+      gsap.from('main', { opacity: 0, y: 30, duration: 0.8, delay: 0.1, ease: 'power3.out' });
+      gsap.from('header', { opacity: 0, y: -15, duration: 0.6, delay: 0.05, ease: 'power3.out' });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NWS Media — Application Under Review</title>
+  <meta name="description" content="Your application to work with NWS Media is under review. We'll follow up within 48 hours.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NWS Media — Application Under Review">
+  <meta property="og:description" content="Your application to work with NWS Media is under review.">
+  <meta property="og:url" content="https://qualify.nwsmedia.com/under-review">
+  <meta property="og:image" content="https://nwsmedia.com/og-image.jpg">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- FOUC Prevention -->
+  <style>.js .anim-element { visibility: hidden; }</style>
+
+  <style>
+    /* ─── DESIGN TOKENS (matching main site) ─── */
+    :root {
+      --background: #0a0a0a;
+      --foreground: #fafafa;
+      --primary: #fafafa;
+      --primary-foreground: #18181b;
+      --secondary: #27272a;
+      --muted-foreground: #a1a1aa;
+      --border: #27272a;
+      --ring: #52525b;
+      --brand-blue: #3b82f6;
+      --brand-blue-dark: #1e3a8a;
+      --brand-blue-light: #bfdbfe;
+      --foreground-rgb: 250, 250, 250;
+      --brand-blue-rgb: 59, 130, 246;
+      --brand-blue-dark-rgb: 30, 58, 138;
+      --brand-blue-light-rgb: 191, 219, 254;
+      --border-rgb: 39, 39, 42;
+      --font-bebas: 'Bebas Neue', sans-serif;
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
+    /* ─── RESET ─── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    html, body { height: 100%; }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::selection { background: var(--brand-blue); color: var(--foreground); }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── NOISE GRAIN (exact match) ─── */
+    #noise-grain {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+    }
+
+    /* ─── CUSTOM CURSOR (exact match) ─── */
+    #cursor-dot {
+      position: fixed; top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: var(--foreground);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10001;
+      will-change: transform;
+      mix-blend-mode: difference;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(var(--brand-blue-rgb), 0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      will-change: transform;
+      mix-blend-mode: difference;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.4s;
+    }
+    body.cursor-hover #cursor-dot { width: 14px; height: 14px; }
+    body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(var(--brand-blue-rgb), 0.8); }
+
+    /* ─── LOADER (exact match) ─── */
+    #loader-overlay {
+      position: fixed; inset: 0; z-index: 9000;
+      background: var(--background);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #loader-overlay.hide { opacity: 0; pointer-events: none; }
+    #loader-letters { display: flex; gap: 0.04em; position: relative; }
+    .loader-char {
+      font-family: var(--font-bebas);
+      font-size: clamp(120px, 20vw, 280px);
+      line-height: 0.88;
+      color: var(--foreground);
+      letter-spacing: -0.01em;
+      user-select: none;
+      transition: color 0.05s;
+    }
+    .loader-char.scrambling { color: rgba(var(--foreground-rgb), 0.6); }
+    .loader-accent-line {
+      position: absolute; bottom: -12px; left: 0;
+      height: 2px;
+      background: var(--brand-blue-light);
+      width: 0;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+    }
+    .loader-accent-line.show { width: 100%; }
+    .loader-tagline {
+      font-family: var(--font-outfit);
+      font-size: clamp(9px, 1vw, 11px);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--foreground);
+      opacity: 0;
+      margin-top: 36px;
+      transform: translateY(8px);
+      transition: opacity 0.7s 0.2s, transform 0.7s 0.2s;
+    }
+    .loader-tagline.show { opacity: 0.35; transform: translateY(0); }
+
+    /* ─── BACKGROUND AURA ─── */
+    .bg-aura {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 20% 18% at 25% 15%, rgba(59,130,246,0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 18% 15% at 75% 70%, rgba(30,58,138,0.04) 0%, transparent 70%);
+    }
+
+    /* ─── LOGO ─── */
+    .logo {
+      font-family: var(--font-bebas);
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      color: var(--foreground);
+      user-select: none;
+    }
+
+    /* ─── SPLIT CHARS ─── */
+    .line-mask { overflow: hidden; display: inline-block; vertical-align: top; line-height: inherit; }
+    .split-char { display: inline-block; }
+    .blur-word { display: inline-block; }
+
+    /* ─── GHOST BUTTON ─── */
+    .ghost-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      min-height: 52px;
+      background: transparent;
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: 1px solid rgba(var(--foreground-rgb), 0.15);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.4s, color 0.4s, box-shadow 0.4s;
+    }
+    .ghost-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(var(--foreground-rgb), 0.05);
+      transform: translateX(-101%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+    .ghost-btn:hover {
+      border-color: rgba(var(--foreground-rgb), 0.4);
+      box-shadow: 0 0 24px rgba(var(--foreground-rgb), 0.04);
+    }
+    .ghost-btn:hover::before { transform: translateX(0); }
+    .ghost-btn span { position: relative; z-index: 1; }
+    .ghost-btn svg { position: relative; z-index: 1; }
+
+    /* ─── ACCESSIBILITY — Focus visible ─── */
+    :focus-visible {
+      outline: 2px solid rgba(var(--brand-blue-rgb), 0.8);
+      outline-offset: 3px;
+    }
+    .ghost-btn:focus-visible {
+      outline: 2px solid var(--foreground);
+      outline-offset: 3px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      #cursor-dot, #cursor-ring { display: none; }
+      body { cursor: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      #cursor-dot, #cursor-ring { display: none !important; }
+      body { cursor: auto !important; }
+      .js .anim-element { visibility: visible !important; opacity: 1 !important; }
+      .blur-word, .split-char { opacity: 1 !important; filter: none !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ═══ NOISE GRAIN ═══ -->
+  <div id="noise-grain"></div>
+
+  <!-- ═══ LOADER / INTRO OVERLAY ═══ -->
+  <div id="loader-overlay">
+    <div id="loader-letters">
+      <span class="loader-char">N</span>
+      <span class="loader-char">W</span>
+      <span class="loader-char">S</span>
+      <div class="loader-accent-line"></div>
+    </div>
+    <div class="loader-tagline">Limitless Creation &mdash; We Build What You Imagine</div>
+  </div>
+
+  <!-- ═══ BACKGROUND AURA ═══ -->
+  <div class="bg-aura"></div>
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <div class="relative z-10 min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- Header — Logo only -->
+    <header class="w-full px-4 sm:px-10 py-5 sm:py-6 flex items-center justify-center anim-element">
+      <a href="index.html" class="logo" data-cursor-hover>NWS MEDIA</a>
+    </header>
+
+    <!-- Centered content -->
+    <main class="flex-1 flex items-center justify-center px-6 sm:px-10">
+      <div class="max-w-xl text-center">
+
+        <!-- Headline -->
+        <h1
+          id="hero-headline"
+          class="font-bebas text-[clamp(2.8rem,8vw,5.5rem)] leading-[0.92] tracking-[-0.01em] mb-8"
+          style="visibility: hidden;"
+        >APPLICATION UNDER REVIEW.</h1>
+
+        <!-- Body copy -->
+        <div id="hero-sub" class="space-y-5" style="visibility: hidden;">
+          <p class="font-outfit text-[clamp(0.95rem,1.6vw,1.1rem)] leading-relaxed font-light text-zinc-400">
+            Thank you for your interest in working with NWS Media. We intentionally keep a limited roster so every client receives our full creative attention. Your application is now in our review queue.
+          </p>
+          <p class="font-outfit text-[clamp(0.95rem,1.6vw,1.1rem)] leading-relaxed font-light text-zinc-400">
+            A member of our team will follow up within <span class="text-white font-normal">48 hours</span> to discuss whether there's a mutual fit. In the meantime, feel free to explore our work.
+          </p>
+        </div>
+
+        <!-- Ghost button -->
+        <div class="mt-10 anim-element" data-animate="cta">
+          <a href="index.html" class="ghost-btn" data-cursor-hover>
+            <span>Return to Home</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Minimal footer -->
+    <footer class="w-full px-4 sm:px-10 py-6 flex items-center justify-center anim-element">
+      <p class="font-outfit text-[10px] tracking-[0.3em] uppercase text-zinc-600">
+        &copy; 2026 NWS Media. All rights reserved.
+      </p>
+    </footer>
+
+  </div>
+
+<script>
+  // ─── CONSTANTS ──────────────────────────────────────────────────────────
+  const NWS_LETTERS = ['N', 'W', 'S'];
+  const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&';
+  const SCRAMBLE_ROUNDS = 14;
+  const SCRAMBLE_STEP = 50;
+  const SCRAMBLE_DELAY = 140;
+  const rChar = () => SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)];
+  const lerp = (a, b, t) => a + (b - a) * t;
+
+  // ─── STATE ──────────────────────────────────────────────────────────────
+  let mouseX = -100, mouseY = -100;
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     1. CURSOR
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function initCursor() {
+    const dot = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    if (!dot || !ring) return;
+
+    const setDotX = gsap.quickSetter(dot, 'x', 'px');
+    const setDotY = gsap.quickSetter(dot, 'y', 'px');
+    const setRingX = gsap.quickSetter(ring, 'x', 'px');
+    const setRingY = gsap.quickSetter(ring, 'y', 'px');
+
+    let ringX = -100, ringY = -100;
+    const dotOff = () => dot.offsetWidth / 2;
+    const ringOff = () => ring.offsetWidth / 2;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    gsap.ticker.add(() => {
+      setDotX(mouseX - dotOff());
+      setDotY(mouseY - dotOff());
+      ringX = lerp(ringX, mouseX, 0.12);
+      ringY = lerp(ringY, mouseY, 0.12);
+      setRingX(ringX - ringOff());
+      setRingY(ringY - ringOff());
+    });
+
+    const targets = 'a, button, [data-cursor-hover]';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(targets)) document.body.classList.add('cursor-hover');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(targets)) document.body.classList.remove('cursor-hover');
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     2. LOADER
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function runLoader() {
+    return new Promise((resolve) => {
+      const overlay = document.getElementById('loader-overlay');
+      const chars = document.querySelectorAll('.loader-char');
+      const accentLine = document.querySelector('.loader-accent-line');
+      const tagline = document.querySelector('.loader-tagline');
+
+      if (!overlay || chars.length === 0) { resolve(); return; }
+
+      let completed = 0;
+
+      chars.forEach((span, i) => {
+        let frame = 0;
+        setTimeout(() => {
+          const iv = setInterval(() => {
+            if (frame < SCRAMBLE_ROUNDS) {
+              span.textContent = rChar();
+              span.classList.add('scrambling');
+              frame++;
+            } else {
+              clearInterval(iv);
+              span.textContent = NWS_LETTERS[i];
+              span.classList.remove('scrambling');
+              completed++;
+              if (completed === chars.length) {
+                setTimeout(() => {
+                  if (accentLine) accentLine.classList.add('show');
+                  if (tagline) tagline.classList.add('show');
+                  setTimeout(() => {
+                    overlay.classList.add('hide');
+                    setTimeout(resolve, 900);
+                  }, 1200);
+                }, 200);
+              }
+            }
+          }, SCRAMBLE_STEP);
+        }, i * SCRAMBLE_DELAY);
+      });
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     3. TEXT REVEAL — Masked character slide-up for headline
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function splitTextNodeIntoWordChars(textContent, container, chars) {
+    const parts = textContent.split(/(\s+)/);
+    parts.forEach(part => {
+      if (/^\s+$/.test(part)) {
+        container.appendChild(document.createTextNode(part));
+      } else if (part) {
+        const wordWrap = document.createElement('span');
+        wordWrap.style.display = 'inline-block';
+        wordWrap.style.whiteSpace = 'nowrap';
+        for (let i = 0; i < part.length; i++) {
+          const mask = document.createElement('span');
+          mask.className = 'line-mask';
+          const span = document.createElement('span');
+          span.className = 'split-char';
+          span.textContent = part[i];
+          mask.appendChild(span);
+          wordWrap.appendChild(mask);
+          chars.push(span);
+        }
+        container.appendChild(wordWrap);
+      }
+    });
+  }
+
+  function splitIntoMaskedChars(el) {
+    const chars = [];
+    const fragment = document.createDocumentFragment();
+
+    el.childNodes.forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        fragment.appendChild(document.createElement('br'));
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        splitTextNodeIntoWordChars(node.textContent, fragment, chars);
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const wrapper = node.cloneNode(false);
+        node.childNodes.forEach(inner => {
+          if (inner.nodeType === Node.TEXT_NODE) {
+            splitTextNodeIntoWordChars(inner.textContent, wrapper, chars);
+          } else if (inner.nodeType === Node.ELEMENT_NODE && inner.tagName === 'BR') {
+            wrapper.appendChild(document.createElement('br'));
+          }
+        });
+        fragment.appendChild(wrapper);
+      }
+    });
+
+    el.innerHTML = '';
+    el.appendChild(fragment);
+    return chars;
+  }
+
+  function splitIntoWords(el) {
+    const fragment = document.createDocumentFragment();
+    const words = [];
+
+    el.childNodes.forEach(node => {
+      if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'BR') {
+        fragment.appendChild(document.createElement('br'));
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        const parts = node.textContent.split(/(\s+)/);
+        parts.forEach(part => {
+          if (/^\s+$/.test(part)) {
+            fragment.appendChild(document.createTextNode(' '));
+          } else if (part) {
+            const span = document.createElement('span');
+            span.className = 'blur-word';
+            span.textContent = part;
+            fragment.appendChild(span);
+            words.push(span);
+          }
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const clone = node.cloneNode(true);
+        clone.classList.add('blur-word');
+        fragment.appendChild(clone);
+        words.push(clone);
+      }
+    });
+
+    el.innerHTML = '';
+    el.appendChild(fragment);
+    return words;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     4. PAGE ENTRANCE ANIMATION
+     ═══════════════════════════════════════════════════════════════════════════ */
+  function animatePage() {
+    if (typeof gsap === 'undefined') return;
+
+    const allElements = document.querySelectorAll('.anim-element');
+    gsap.set(allElements, { visibility: 'visible' });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const h = document.getElementById('hero-headline');
+      const s = document.getElementById('hero-sub');
+      if (h) h.style.visibility = 'visible';
+      if (s) s.style.visibility = 'visible';
+      return;
+    }
+
+    const masterTL = gsap.timeline({ delay: 0.1 });
+
+    // 1. Logo
+    masterTL.fromTo('header.anim-element',
+      { opacity: 0, y: -20, filter: 'blur(8px)' },
+      { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }
+    );
+
+    // 2. Headline — character-by-character masked slide up
+    const headline = document.getElementById('hero-headline');
+    if (headline) {
+      headline.style.visibility = 'visible';
+      const chars = splitIntoMaskedChars(headline);
+      if (chars.length) {
+        gsap.set(chars, { yPercent: 110 });
+        masterTL.to(chars, {
+          yPercent: 0,
+          duration: 1.0,
+          stagger: 0.015,
+          ease: 'power4.out',
+        }, '-=0.2');
+      }
+    }
+
+    // 3. Body copy — word blur reveal
+    const subEl = document.getElementById('hero-sub');
+    if (subEl) {
+      const words = splitIntoWords(subEl);
+      gsap.set(words, { opacity: 0, y: -20, filter: 'blur(8px)' });
+      subEl.style.visibility = 'visible';
+      masterTL.to(words, {
+        opacity: 1, y: 0, filter: 'blur(0px)',
+        duration: 0.6, stagger: 0.025, ease: 'power2.out',
+      }, '-=0.5');
+    }
+
+    // 4. Ghost button — blur fade
+    const cta = document.querySelector('[data-animate="cta"]');
+    if (cta) {
+      masterTL.fromTo(cta,
+        { opacity: 0, y: 20, filter: 'blur(6px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' },
+        '-=0.3'
+      );
+    }
+
+    // 5. Footer
+    masterTL.fromTo('footer.anim-element',
+      { opacity: 0 },
+      { opacity: 1, duration: 0.5, ease: 'power2.out' },
+      '-=0.3'
+    );
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════════
+     INIT
+     ═══════════════════════════════════════════════════════════════════════════ */
+  document.addEventListener('DOMContentLoaded', async () => {
+    // GSAP failsafe
+    if (typeof gsap === 'undefined') {
+      document.querySelectorAll('.anim-element').forEach(el => {
+        el.style.visibility = 'visible';
+      });
+      document.getElementById('hero-headline')?.style.setProperty('visibility', 'visible');
+      document.getElementById('hero-sub')?.style.setProperty('visibility', 'visible');
+      const overlay = document.getElementById('loader-overlay');
+      if (overlay) overlay.style.display = 'none';
+      return;
+    }
+
+    initCursor();
+    await runLoader();
+    animatePage();
+  });
+</script>
+
+</body>
+</html>

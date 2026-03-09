@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Free Discovery Call — NWS Media</title>
+  <meta name="description" content="Schedule a free 15-20 minute discovery call with NWS Media. Get a website audit with triage status, performance score, and SEO analysis.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#000000',
+            light: '#ffffff',
+            muted: '#111111',
+            subtle: '#f5f5f5',
+          },
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+            playfair: ['"Playfair Display"', 'serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    .book-right {
+      background: var(--background) !important;
+      color: var(--foreground) !important;
+    }
+
+    /* ─── Form panel container ─── */
+    #form-panel, #calendly-panel {
+      width: 100%;
+      max-width: 480px;
+    }
+    #calendly-panel { display: none; }
+
+    /* ─── Form inputs ─── */
+    .bc-form-input {
+      width: 100%;
+      padding: 14px 18px;
+      min-height: 48px;
+      background: rgba(250, 250, 250, 0.03);
+      border: 1px solid #27272a;
+      border-radius: 0;
+      color: #fafafa;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .bc-form-input::placeholder { color: #52525b; }
+    .bc-form-input:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12), 0 0 24px rgba(59, 130, 246, 0.06);
+    }
+
+    select.bc-form-input {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23a1a1aa' viewBox='0 0 16 16'%3E%3Cpath d='M4.5 6l3.5 4 3.5-4z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 16px center;
+      background-size: 16px;
+      padding-right: 44px;
+      cursor: pointer;
+    }
+    select.bc-form-input option { background: #141416; color: #fafafa; }
+
+    /* ─── Checkbox group ─── */
+    .bc-checkbox-group { display: flex; flex-wrap: wrap; gap: 2px; }
+    .bc-checkbox-label {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 18px;
+      min-height: 48px;
+      background: rgba(250, 250, 250, 0.03);
+      border: 1px solid #27272a;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s, background 0.3s, color 0.3s;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      color: #a1a1aa;
+      user-select: none;
+      flex: 1 1 auto;
+      min-width: 140px;
+    }
+    .bc-checkbox-label:hover { border-color: #3f3f46; background: rgba(250, 250, 250, 0.05); }
+    .bc-checkbox-label.checked {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.06);
+      color: #fafafa;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+    .bc-checkbox-label input[type="checkbox"] {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+    .bc-check-box {
+      width: 18px; height: 18px;
+      border: 1.5px solid #3f3f46;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .bc-checkbox-label.checked .bc-check-box { border-color: #3b82f6; background: #3b82f6; }
+    .bc-check-box svg { opacity: 0; transition: opacity 0.2s; }
+    .bc-checkbox-label.checked .bc-check-box svg { opacity: 1; }
+
+    /* ─── Field label ─── */
+    .bc-field-label {
+      display: block;
+      font-family: 'Outfit', sans-serif;
+      font-size: 9px; font-weight: 400;
+      color: #a1a1aa;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    /* ─── Divider ─── */
+    .bc-form-divider {
+      height: 1px;
+      background: rgba(250, 250, 250, 0.06);
+      margin: 8px 0;
+    }
+
+    /* ─── Submit button ─── */
+    .bc-submit-btn {
+      width: 100%;
+      padding: 20px 40px;
+      min-height: 56px;
+      background: #3b82f6;
+      color: #fafafa;
+      font-family: 'Outfit', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      border: 1px solid #3b82f6;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s, box-shadow 0.4s;
+    }
+    .bc-submit-btn::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: #1e3a8a;
+      transform: translateX(-101%);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 0;
+    }
+    .bc-submit-btn:hover {
+      color: #fafafa;
+      box-shadow: 0 0 24px rgba(59, 130, 246, 0.3), 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .bc-submit-btn:hover::before { transform: translateX(0); }
+    .bc-submit-btn span { position: relative; z-index: 1; }
+
+    /* ─── Trust row ─── */
+    .bc-trust-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      color: rgba(250, 250, 250, 0.25);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem; line-height: 1.5;
+    }
+    .bc-trust-row svg { flex-shrink: 0; margin-top: 2px; }
+
+    /* ─── Bento form card (glassmorphism + spotlight) ─── */
+    .bc-form-card {
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      transform-style: preserve-3d;
+      will-change: transform;
+      background: rgba(250, 250, 250, 0.02);
+      -webkit-backdrop-filter: blur(12px) saturate(1.2);
+      backdrop-filter: blur(12px) saturate(1.2);
+      border: 1px solid rgba(250, 250, 250, 0.06);
+      background-image:
+        linear-gradient(135deg, rgba(250, 250, 250, 0.03) 0%, transparent 50%),
+        linear-gradient(225deg, rgba(30, 58, 138, 0.06) 0%, transparent 60%);
+      transition: transform 0.45s cubic-bezier(0.03, 0.98, 0.52, 0.99),
+                  border-color 0.5s, box-shadow 0.5s;
+    }
+    .bc-form-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(250, 250, 250, 0.015) 0%, transparent 40%, rgba(0,0,0,0.1) 100%);
+      pointer-events: none; z-index: 0;
+    }
+    .bc-form-card:hover {
+      border-color: rgba(250, 250, 250, 0.12);
+      box-shadow: 0 8px 32px rgba(30, 58, 138, 0.2),
+                  0 0 0 1px rgba(250, 250, 250, 0.04) inset;
+    }
+    .bc-spotlight {
+      position: absolute; inset: 0; z-index: 0;
+      opacity: 0; transition: opacity 0.4s;
+      pointer-events: none;
+      background: radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(30, 58, 138, 0.15) 0%, transparent 70%);
+    }
+    .bc-form-card:hover .bc-spotlight { opacity: 1; }
+    .bc-border-glow {
+      position: absolute; inset: -1px; z-index: -1;
+      opacity: 0; transition: opacity 0.5s;
+      pointer-events: none;
+      background: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%),
+        rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+    }
+    .bc-form-card:hover .bc-border-glow { opacity: 1; }
+    .bc-form-card-inner {
+      position: relative;
+      z-index: 10;
+      padding: 2rem 2rem 2.25rem;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .bc-checkbox-label { min-width: 100%; }
+      .bc-form-card {
+        transform: none !important;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+    }
+    @media (min-width: 769px) {
+      .bc-form-card-inner { padding: 2.5rem; }
+    }
+  </style>
+</head>
+<body class="page-book">
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ═══ BOOK PAGE LAYOUT ═══ -->
+  <div class="book-page">
+
+    <!-- LEFT PANEL: Info + Audit -->
+    <div class="book-left">
+      <a href="index.html" class="book-back" data-cursor-hover>
+        <span class="back-arrow"></span>
+        Back to Home
+      </a>
+
+      <div class="book-eyebrow">Free Website Audit</div>
+
+      <h1 class="book-heading">
+        Your Website<br>Is Losing You<br>Money.
+      </h1>
+
+      <p class="book-body">
+        Most local businesses have a website that looks "fine" &mdash;
+        but bleeds revenue every day. Slow load times. Zero SEO.
+        No conversion strategy. We'll show you exactly where the
+        holes are with a full website audit.
+      </p>
+
+      <!-- Audit Metrics -->
+      <div class="audit-grid">
+        <div class="audit-card" data-cursor-hover>
+          <div class="bento-spotlight"></div>
+          <div class="bento-border-glow"></div>
+          <div class="audit-value" data-count="600" data-suffix="%" data-prefix="+">0</div>
+          <div class="audit-label">Increase<br>In Views</div>
+        </div>
+        <div class="audit-card" data-cursor-hover>
+          <div class="bento-spotlight"></div>
+          <div class="bento-border-glow"></div>
+          <div class="audit-value" data-count="75" data-suffix="%" data-prefix="+">0</div>
+          <div class="audit-label">Performance<br>Boost</div>
+        </div>
+        <div class="audit-card" data-cursor-hover>
+          <div class="bento-spotlight"></div>
+          <div class="bento-border-glow"></div>
+          <div class="audit-value" data-count="60" data-suffix="%" data-prefix="+">0</div>
+          <div class="audit-label">SEO Score<br>Boost</div>
+        </div>
+      </div>
+
+      <!-- What you get -->
+      <ul class="book-steps">
+        <li class="book-step">Book a 15-20 minute discovery call</li>
+        <li class="book-step">We audit your site live: speed, SEO, UX</li>
+        <li class="book-step">Get a triage report with priority fixes</li>
+        <li class="book-step">Receive a custom proposal &mdash; no pressure</li>
+      </ul>
+    </div>
+
+    <!-- RIGHT PANEL: Form → Calendly -->
+    <div class="book-right">
+
+      <!-- ═══ STEP 1: QUALIFICATION FORM ═══ -->
+      <div id="form-panel">
+        <div class="bc-form-card" id="bc-form-card" data-cursor-hover>
+          <div class="bc-spotlight"></div>
+          <div class="bc-border-glow"></div>
+          <div class="bc-form-card-inner">
+
+        <div style="margin-bottom: 4px;">
+          <span style="font-family: var(--font-outfit); font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(191, 219, 254, 0.8);">Limited Availability</span>
+        </div>
+        <h2 class="book-right-heading" style="color: var(--foreground); text-align: left;">Apply To Work With Us</h2>
+        <p style="font-family: var(--font-outfit); color: var(--muted-foreground); font-size: 0.85rem; margin-bottom: 2rem;">Fill out the form below and we'll be in touch within 24 hours.</p>
+
+        <form id="book-qualify-form" novalidate>
+          <div style="display: flex; flex-direction: column; gap: 20px;">
+
+            <div>
+              <label class="bc-field-label" for="bc-full-name">Full Name</label>
+              <input type="text" id="bc-full-name" name="fullName" class="bc-form-input" placeholder="John Smith" required autocomplete="name">
+            </div>
+
+            <div>
+              <label class="bc-field-label" for="bc-work-email">Work Email</label>
+              <input type="email" id="bc-work-email" name="email" class="bc-form-input" placeholder="john@yourbusiness.com" required autocomplete="email">
+            </div>
+
+            <div>
+              <label class="bc-field-label" for="bc-phone">Phone Number</label>
+              <input type="tel" id="bc-phone" name="phone" class="bc-form-input" placeholder="(555) 000-0000" required autocomplete="tel">
+            </div>
+
+            <div class="bc-form-divider"></div>
+
+            <div>
+              <label class="bc-field-label" for="bc-business-type">Business Type</label>
+              <select id="bc-business-type" name="businessType" class="bc-form-input" required>
+                <option value="" disabled selected>Select your industry</option>
+                <option value="contractor">Contractor</option>
+                <option value="dentist">Dentist</option>
+                <option value="medspa">Med Spa</option>
+                <option value="law-firm">Law Firm</option>
+                <option value="real-estate">Real Estate</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <span class="bc-field-label" id="bc-services-label">Service Needed</span>
+              <div class="bc-checkbox-group" role="group" aria-labelledby="bc-services-label">
+                <label class="bc-checkbox-label">
+                  <input type="checkbox" name="services" value="web-design">
+                  <span class="bc-check-box">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Web Design
+                </label>
+                <label class="bc-checkbox-label">
+                  <input type="checkbox" name="services" value="custom-software">
+                  <span class="bc-check-box">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Custom Software
+                </label>
+                <label class="bc-checkbox-label">
+                  <input type="checkbox" name="services" value="lead-scraper">
+                  <span class="bc-check-box">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Lead Scraper
+                </label>
+                <label class="bc-checkbox-label">
+                  <input type="checkbox" name="services" value="video-production">
+                  <span class="bc-check-box">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  </span>
+                  Video Production
+                </label>
+              </div>
+            </div>
+
+            <div class="bc-form-divider"></div>
+
+            <div>
+              <label class="bc-field-label" for="bc-timeline">Project Timeline</label>
+              <select id="bc-timeline" name="timeline" class="bc-form-input" required>
+                <option value="" disabled selected>When do you need this?</option>
+                <option value="asap">ASAP</option>
+                <option value="2-3-weeks">2-3 Weeks</option>
+                <option value="1-2-months">1-2 Months</option>
+                <option value="exploring">Just Exploring</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="bc-field-label" for="bc-budget">Estimated Budget</label>
+              <select id="bc-budget" name="budget" class="bc-form-input" required>
+                <option value="" disabled selected>Select your budget range</option>
+                <option value="under-3000">Under $3,000</option>
+                <option value="3000-5000">$3,000 - $5,000</option>
+                <option value="5000-10000">$5,000 - $10,000</option>
+                <option value="10000-plus">$10,000+</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="bc-submit-btn" style="margin-top: 2rem;" data-cursor-hover>
+            <span>Apply To Work With Us</span>
+          </button>
+
+          <div class="bc-trust-row" style="margin-top: 1.25rem;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Your information is secure. We typically respond within 24 hours if you aren't redirected immediately.</span>
+          </div>
+        </form>
+
+          </div><!-- .bc-form-card-inner -->
+        </div><!-- .bc-form-card -->
+      </div>
+
+      <!-- ═══ STEP 2: CALENDLY (hidden until form submitted) ═══ -->
+      <div id="calendly-panel">
+        <h2 class="book-right-heading" style="color: var(--foreground); text-align: center;">Pick a Time</h2>
+        <p style="font-family: var(--font-outfit); font-weight: 300; font-size: clamp(14px,1.2vw,18px); color: var(--muted-foreground); margin-bottom: 2.5rem; text-align: center;">15-20 min &middot; Free &middot; No commitment</p>
+        <div class="calendly-inline-widget"
+             data-url="https://calendly.com/shunya-nwsmedia/30min"
+             style="min-width:320px;height:580px;width:100%;">
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script src="script.js"></script>
+
+  <script>
+  (function() {
+    // ─── 3D Tilt + Spotlight on audit cards ───
+    var auditCards = document.querySelectorAll('.audit-card');
+    if (auditCards.length && typeof gsap !== 'undefined' && !('ontouchstart' in window) && window.innerWidth > 768) {
+      var AUDIT_TILT = 8;
+      auditCards.forEach(function(ac) {
+        ac.addEventListener('mousemove', function(e) {
+          var rect = ac.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+          var cx = rect.width / 2;
+          var cy = rect.height / 2;
+          var nx = (x - cx) / cx;
+          var ny = (y - cy) / cy;
+          ac.style.setProperty('--mx', x + 'px');
+          ac.style.setProperty('--my', y + 'px');
+          gsap.to(ac, {
+            rotateY: nx * AUDIT_TILT,
+            rotateX: -ny * AUDIT_TILT,
+            duration: 0.45,
+            ease: 'power2.out',
+            overwrite: 'auto'
+          });
+        });
+        ac.addEventListener('mouseleave', function() {
+          gsap.to(ac, {
+            rotateX: 0, rotateY: 0,
+            duration: 0.7,
+            ease: 'elastic.out(1, 0.5)',
+            overwrite: 'auto'
+          });
+        });
+      });
+    }
+
+    // ─── 3D Tilt + Spotlight on form card ───
+    var card = document.getElementById('bc-form-card');
+    if (card && typeof gsap !== 'undefined' && !('ontouchstart' in window) && window.innerWidth > 768) {
+      var TILT_MAX = 4;
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var cx = rect.width / 2;
+        var cy = rect.height / 2;
+        var nx = (x - cx) / cx;
+        var ny = (y - cy) / cy;
+        card.style.setProperty('--mx', x + 'px');
+        card.style.setProperty('--my', y + 'px');
+        gsap.to(card, {
+          rotateY: nx * TILT_MAX,
+          rotateX: -ny * TILT_MAX,
+          duration: 0.45,
+          ease: 'power2.out',
+          overwrite: 'auto'
+        });
+      });
+      card.addEventListener('mouseleave', function() {
+        gsap.to(card, {
+          rotateX: 0, rotateY: 0,
+          duration: 0.7,
+          ease: 'elastic.out(1, 0.5)',
+          overwrite: 'auto'
+        });
+      });
+
+      // Entrance animation
+      gsap.fromTo(card,
+        { opacity: 0, y: 60, scale: 0.96, filter: 'blur(10px)' },
+        { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', duration: 1.0, delay: 0.4, ease: 'power4.out' }
+      );
+    }
+
+    // Checkbox toggle
+    document.querySelectorAll('.bc-checkbox-label').forEach(function(label) {
+      var checkbox = label.querySelector('input[type="checkbox"]');
+      label.addEventListener('click', function(e) {
+        if (e.target === checkbox) return;
+        e.preventDefault();
+        checkbox.checked = !checkbox.checked;
+        label.classList.toggle('checked', checkbox.checked);
+      });
+      checkbox.addEventListener('change', function() {
+        label.classList.toggle('checked', checkbox.checked);
+      });
+    });
+
+    // Form submission → Formspree then transition to Calendly
+    var form = document.getElementById('book-qualify-form');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var budget = form.budget.value;
+
+      // Validate required fields
+      var required = form.querySelectorAll('[required]');
+      var valid = true;
+      required.forEach(function(field) {
+        if (!field.value) {
+          field.style.borderColor = '#ef4444';
+          field.style.boxShadow = '0 0 0 3px rgba(239,68,68,0.15)';
+          valid = false;
+          var clearError = function() {
+            field.style.borderColor = '';
+            field.style.boxShadow = '';
+          };
+          field.addEventListener('input', clearError, { once: true });
+          field.addEventListener('change', clearError, { once: true });
+        }
+      });
+
+      if (!valid) return;
+
+      // Collect checked services
+      var services = [];
+      form.querySelectorAll('input[name="services"]:checked').forEach(function(cb) {
+        services.push(cb.value);
+      });
+
+      // Build form data
+      var data = {
+        _subject: 'New Book-a-Call Submission — NWS Media',
+        fullName: form.fullName.value,
+        email: form.email.value,
+        phone: form.phone.value,
+        businessType: form.businessType.value,
+        services: services.join(', '),
+        timeline: form.timeline.value,
+        budget: form.budget.value,
+        source: 'book-call'
+      };
+
+      // Submit to Formspree
+      fetch('https://formspree.io/f/mojkjqoe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function(res) {
+        if (!res.ok) console.warn('Formspree submission issue:', res.status);
+      }).catch(function(err) {
+        console.warn('Formspree error:', err);
+      });
+
+      // Under $3k → redirect to under-review page
+      if (budget === 'under-3000') {
+        window.location.href = 'under-review.html';
+        return;
+      }
+
+      // Qualified → animate form out, Calendly in
+      var formPanel = document.getElementById('form-panel');
+      var calendlyPanel = document.getElementById('calendly-panel');
+
+      if (typeof gsap !== 'undefined') {
+        gsap.to(formPanel, {
+          opacity: 0, y: -30, duration: 0.5, ease: 'power3.in',
+          onComplete: function() {
+            formPanel.style.display = 'none';
+            calendlyPanel.style.display = 'block';
+            gsap.fromTo(calendlyPanel,
+              { opacity: 0, y: 40 },
+              { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
+            );
+          }
+        });
+      } else {
+        formPanel.style.display = 'none';
+        calendlyPanel.style.display = 'block';
+      }
+    });
+  })();
+  </script>
+
+</body>
+</html>

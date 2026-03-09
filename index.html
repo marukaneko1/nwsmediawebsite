@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NWS Media — We Build What You Imagine</title>
+  <meta name="description" content="NWS Media is a luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO for service businesses.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NWS Media — We Build What You Imagine">
+  <meta property="og:description" content="Luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO.">
+  <meta property="og:url" content="https://nwsmedia.com">
+  <meta property="og:image" content="https://nwsmedia.com/og-image.jpg">
+  <meta property="og:site_name" content="NWS Media">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NWS Media — We Build What You Imagine">
+  <meta name="twitter:description" content="Luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO.">
+  <meta name="twitter:image" content="https://nwsmedia.com/og-image.jpg">
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://nwsmedia.com">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            background: 'var(--background)',
+            foreground: 'var(--foreground)',
+            primary: { DEFAULT: 'var(--primary)', foreground: 'var(--primary-foreground)' },
+            secondary: { DEFAULT: 'var(--secondary)', foreground: 'var(--secondary-foreground)' },
+            card: { DEFAULT: 'var(--card)', foreground: 'var(--card-foreground)' },
+            accent: { DEFAULT: 'var(--accent)', foreground: 'var(--accent-foreground)' },
+            muted: { DEFAULT: 'var(--muted)', foreground: 'var(--muted-foreground)' },
+            border: 'var(--border)',
+            input: 'var(--input)',
+            ring: 'var(--ring)',
+            brand: { DEFAULT: 'var(--brand-blue)', dark: 'var(--brand-blue-dark)', light: 'var(--brand-blue-light)' },
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger + Draggable + Observer -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+
+  <!-- FOUC Prevention: hide animated elements until GSAP takes over -->
+  <style>
+    .js .hero-headline,
+    .js .value-heading,
+    .js .section-heading,
+    .js .cta-heading,
+    .js .section-label,
+    .js .value-text,
+    .js .section-body,
+    .js .cta-sub,
+    .js .cta-btn,
+    .js .service-card,
+    .js .work-card,
+    .js .pricing-card,
+    .js .showreel-heading { visibility: hidden; }
+  </style>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══ CUSTOM CURSOR ═══ -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- ═══ SQUARES CANVAS BACKGROUND ═══ -->
+  <canvas id="squares-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;opacity:0.5;pointer-events:none;"></canvas>
+
+  <!-- ═══ NOISE GRAIN ═══ -->
+  <div id="noise-grain"></div>
+
+  <!-- ═══ CORNER DETAILS ═══ -->
+  <div class="corner corner-bl">&copy; 2026 NWS</div>
+  <div class="corner corner-br">&mdash; We Build What You Imagine</div>
+
+  <!-- ═══ LOADER / INTRO OVERLAY ═══ -->
+  <div id="loader-overlay">
+    <div id="loader-letters">
+      <span class="loader-char">N</span>
+      <span class="loader-char">W</span>
+      <span class="loader-char">S</span>
+      <div class="loader-accent-line"></div>
+    </div>
+    <div class="loader-tagline">Limitless Creation &mdash; We Build What You Imagine</div>
+  </div>
+
+  <!-- ═══ MORPHING NAVIGATION ═══ -->
+  <nav id="pill-nav">
+    <a href="/" class="pill-logo" data-cursor-hover>NWS</a>
+    <ul class="pill-list">
+      <li><a href="#about" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">About</span><span class="pill-label-hover">About</span></span></a></li>
+      <li><a href="#services" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover">Services</span></span></a></li>
+      <li><a href="#advantage" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Edge</span><span class="pill-label-hover">Edge</span></span></a></li>
+      <li><a href="#pricing" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Pricing</span><span class="pill-label-hover">Pricing</span></span></a></li>
+    </ul>
+    <a href="book-call.html" class="pill pill-cta" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Book a Call</span><span class="pill-label-hover">Book a Call</span></span></a>
+  </nav>
+
+  <!-- ═══ HERO SECTION ═══ -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span>Web Design &amp; Development Agency</span>
+      </div>
+
+      <div class="hero-main">
+        <h1 class="hero-headline">
+          Limitless <span class="hero-rotate"><span class="hero-rotate-word">Creation</span><span class="hero-rotate-word">Experiences</span><span class="hero-rotate-word">Software</span><span class="hero-rotate-word">Brands</span><span class="hero-rotate-word">Revenue</span></span><br>
+          We Build What<br>
+          You Imagine.
+        </h1>
+
+        <div class="hero-bottom">
+          <p class="hero-sub">
+            Luxury custom websites, in-house software, and lead generation engines &mdash; engineered for businesses that refuse to blend in.
+          </p>
+
+          <div class="hero-cta-row">
+            <a href="book-call.html" class="btn-primary" data-cursor-hover>
+              <span>Book a Free Call</span>
+            </a>
+            <a href="#services" class="btn-ghost" data-cursor-hover>
+              <span class="arrow-line"></span>
+              View Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══ TECH MARQUEE ═══ -->
+  <section class="marquee-section">
+    <div class="marquee-label">Our Tech Stack</div>
+    <div class="marquee-track">
+      <div class="marquee-item">
+        <span>React</span><div class="dot"></div>
+        <span>Next.js</span><div class="dot"></div>
+        <span>Vercel</span><div class="dot"></div>
+        <span>GSAP</span><div class="dot"></div>
+        <span>Tailwind</span><div class="dot"></div>
+        <span>AWS</span><div class="dot"></div>
+        <span>Node.js</span><div class="dot"></div>
+        <span>Figma</span><div class="dot"></div>
+        <span>Three.js</span><div class="dot"></div>
+        <span>Framer</span><div class="dot"></div>
+      </div>
+    </div>
+    <div class="marquee-track" style="margin-top: 16px;">
+      <div class="marquee-item">
+        <span>TypeScript</span><div class="dot"></div>
+        <span>PostgreSQL</span><div class="dot"></div>
+        <span>Stripe</span><div class="dot"></div>
+        <span>Supabase</span><div class="dot"></div>
+        <span>Python</span><div class="dot"></div>
+        <span>OpenAI</span><div class="dot"></div>
+        <span>Puppeteer</span><div class="dot"></div>
+        <span>Docker</span><div class="dot"></div>
+        <span>Cloudflare</span><div class="dot"></div>
+        <span>GraphQL</span><div class="dot"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SHOWREEL ═══ -->
+  <section id="showreel" class="showreel-section">
+    <div class="section-label">— Proof of Execution</div>
+    <h2 class="section-heading section-heading--wide showreel-heading">
+      See What We Build.
+    </h2>
+
+    <div class="showreel-track-wrapper">
+      <div class="showreel-track">
+        <div class="showreel-slide"><video src="vid1.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <div class="showreel-slide"><video src="vid2.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <div class="showreel-slide"><video src="vid4.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <div class="showreel-slide"><video src="vid3.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <!-- Duplicates for seamless infinite loop -->
+        <div class="showreel-slide"><video src="vid1.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <div class="showreel-slide"><video src="vid2.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <div class="showreel-slide"><video src="vid4.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+        <div class="showreel-slide"><video src="vid3.mp4" autoplay loop muted playsinline preload="metadata"></video></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT / VALUE (transitions to light) ═══ -->
+  <section id="about" class="value-section">
+    <div class="section-label">— About NWS</div>
+    <div class="value-grid">
+      <div>
+        <h2 class="value-heading">
+          You're Not Just<br>Buying A Website.
+        </h2>
+      </div>
+      <div class="value-text">
+        <strong>You're buying the customers that website brings in.</strong>
+        <br><br>
+        We design scroll-driven, interactive websites built to captivate.
+        Custom animations. Immersive UI. Brand-defining design.
+        Every pixel is engineered to convert visitors into paying customers.
+        <br><br>
+        From bold visual concepts to animated interfaces, we craft
+        digital experiences that move &mdash; and move people. Your website
+        isn't just a page. <strong>It's your hardest-working sales rep.</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVICES (back to dark) ═══ -->
+  <section id="services" class="section">
+    <div class="section-label">— What We Do</div>
+    <h2 class="section-heading section-heading--wide">
+      Built For Businesses That Demand More.
+    </h2>
+
+    <div class="services-grid">
+      <!-- MagicBento Service Cards -->
+      <div class="service-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="service-number">01</div>
+        <h3 class="service-title">Luxury Custom Websites</h3>
+        <p class="service-desc">
+          Scroll-driven, immersive websites with custom GSAP animations,
+          parallax effects, and editorial-grade typography. No templates.
+          No compromises. Built from scratch to define your brand.
+        </p>
+      </div>
+
+      <div class="service-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="service-number">02</div>
+        <h3 class="service-title">In-House Software</h3>
+        <p class="service-desc">
+          Custom dashboards, booking systems, client portals, and internal
+          tools. We build the software your business needs but can't find
+          off-the-shelf. Tailored. Scalable. Yours.
+        </p>
+      </div>
+
+      <div class="service-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="service-number">03</div>
+        <h3 class="service-title">Proprietary Lead Scrapers</h3>
+        <p class="service-desc">
+          AI-powered lead generation engines that find, qualify, and deliver
+          your ideal prospects on autopilot. Built with Puppeteer, Python,
+          and custom algorithms. Your pipeline, automated.
+        </p>
+      </div>
+
+      <div class="service-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="service-number">04</div>
+        <h3 class="service-title">Local SEO &amp; Brand Identity</h3>
+        <p class="service-desc">
+          Dominate your local market with technical SEO, Google Business
+          optimization, citation building, and a cohesive brand identity
+          that makes your competitors look invisible.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ COMPETITIVE ADVANTAGE ═══ -->
+  <section id="advantage" class="section">
+    <div class="section-label">— Our Moat</div>
+    <h2 class="section-heading section-heading--wide">
+      We Don't Guess. We Audit, Prove, & Execute.
+    </h2>
+    <p class="section-body" style="margin-top: -1rem; margin-bottom: 3rem; max-width: 800px;">
+      We don't just pitch a new design. We analyze your current digital footprint, benchmark it against local competitors, and show you exactly where you're leaving money on the table before you ever sign a contract.
+    </p>
+
+    <div class="works-grid">
+      <div class="work-card magic-bento work-card-wide" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
+          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">01</div>
+          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Audit-First Engineering</h3>
+          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
+            Before we write a single line of code, we run a diagnostic on your current digital presence. We analyze PageSpeed, SEO gaps, and Core Web Vitals to show you the exact metrics holding you back. We compete on evidence, not vague promises.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
+          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">02</div>
+          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Built To Rank, Day One</h3>
+          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
+            88% of local mobile searchers call or visit within 24 hours. We don't build a site and bolt SEO on later. Your foundation is engineered for Google Page 1 from the start.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
+          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">03</div>
+          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Vertical Specialists</h3>
+          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
+            We don't build generic templates. We engineer lead machines specifically for contractors, dentists, and med spas in major metros. We know your job values and your market.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-card magic-bento work-card-wide" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
+          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">04</div>
+          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Owner-Operated Execution</h3>
+          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
+            Forget bloated agency overhead or freelancers who disappear after launch. You get direct access to the senior-level talent actually doing the work, ensuring faster decisions and predictable delivery.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRICING (transitions to light) ═══ -->
+  <section id="pricing" class="section">
+    <div class="section-label">— Investment</div>
+    <h2 class="section-heading section-heading--wide">
+      Choose Your Tier.
+    </h2>
+    <p class="section-body">
+      Every tier includes strategy, design, development, and deployment.
+      No hidden fees. No scope creep. Just results.
+    </p>
+    <p class="section-body" style="margin-top: 2rem; font-weight: 500; color: var(--foreground); letter-spacing: 0.05em;">
+      Pricing starts from the following
+    </p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="pricing-label">Starter</div>
+        <div class="pricing-name">The Floor</div>
+        <div class="pricing-price">$3,500<span class="pricing-price-suffix">+</span></div>
+        <p class="pricing-desc">
+          For businesses ready to step up from a DIY site to a
+          professionally designed web presence.
+        </p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">5-page custom website</li>
+          <li class="pricing-feature">Mobile-first responsive design</li>
+          <li class="pricing-feature">SEO fundamentals built-in</li>
+          <li class="pricing-feature">Contact form + Google Maps</li>
+          <li class="pricing-feature">1 round of revisions</li>
+        </ul>
+        <a href="book-call.html" class="pricing-btn" data-cursor-hover>Get Started</a>
+      </div>
+
+      <div class="pricing-card magic-bento featured" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="pricing-label">Most Popular</div>
+        <div class="pricing-name">The Target</div>
+        <div class="pricing-price">$5,500<span class="pricing-price-suffix">+</span></div>
+        <p class="pricing-desc">
+          The sweet spot. Full local SEO, scroll animations,
+          and data-backed design decisions.
+        </p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">8-12 page custom website</li>
+          <li class="pricing-feature">GSAP scroll-driven animations</li>
+          <li class="pricing-feature">Local SEO strategy + execution</li>
+          <li class="pricing-feature">Website audit data proof</li>
+          <li class="pricing-feature">Google Business optimization</li>
+          <li class="pricing-feature">2 rounds of revisions</li>
+        </ul>
+        <a href="book-call.html" class="pricing-btn" data-cursor-hover>Get Started</a>
+      </div>
+
+      <div class="pricing-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="pricing-label">Enterprise</div>
+        <div class="pricing-name">The High-End</div>
+        <div class="pricing-price">$9,000<span class="pricing-price-suffix">+</span></div>
+        <p class="pricing-desc">
+          For businesses with complex needs, multiple locations,
+          or high-volume booking requirements.
+        </p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">Unlimited pages + custom CMS</li>
+          <li class="pricing-feature">Booking system integration</li>
+          <li class="pricing-feature">Multi-location SEO</li>
+          <li class="pricing-feature">Lead scraper setup</li>
+          <li class="pricing-feature">Custom software development</li>
+          <li class="pricing-feature">Priority support + 3 revisions</li>
+        </ul>
+        <a href="book-call.html" class="pricing-btn" data-cursor-hover>Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA (back to dark) ═══ -->
+  <section class="cta-section">
+    <h2 class="cta-heading">
+      Ready To Build<br>Something Real?
+    </h2>
+    <p class="cta-sub">
+      Stop losing customers to a website that doesn't convert. Let's build one that does.
+    </p>
+    <a href="book-call.html" class="cta-btn" data-cursor-hover>
+      <span>Book Your Free Discovery Call</span>
+    </a>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">NWS</div>
+        <p class="footer-tagline">Limitless Creation — We Build What You Imagine.</p>
+        <a href="book-call.html" class="footer-contact-btn" data-cursor-hover>Contact Us</a>
+      </div>
+
+      <div class="footer-columns">
+        <div class="footer-col">
+          <div class="footer-col-title">Services</div>
+          <ul class="footer-col-list">
+            <li><a href="#services">Custom Websites</a></li>
+            <li><a href="#services">In-House Software</a></li>
+            <li><a href="#services">Lead Scrapers</a></li>
+            <li><a href="#services">Local SEO</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Company</div>
+          <ul class="footer-col-list">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#advantage">Our Edge</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <ul class="footer-col-list">
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Contact</div>
+          <ul class="footer-col-list">
+            <li><a href="mailto:info@nwsmedia.com">info@nwsmedia.com</a></li>
+            <li><span class="footer-col-text">New York, NY</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-newsletter">
+      <div class="footer-newsletter-text">Stay in the loop — get design tips and project updates.</div>
+      <form class="footer-newsletter-form" id="newsletter-form">
+        <input type="email" name="email" placeholder="you@company.com" class="footer-newsletter-input" aria-label="Email address" required>
+        <button type="submit" class="footer-newsletter-btn" data-cursor-hover aria-label="Subscribe">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+    </div>
+
+    <div class="footer-socials-bar">
+      <a href="#" class="footer-social" data-cursor-hover aria-label="LinkedIn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="#" class="footer-social" data-cursor-hover aria-label="X (Twitter)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l11.733 16h4.267l-11.733-16z"/><path d="M4 20l6.768-6.768M20 4l-6.768 6.768"/></svg>
+      </a>
+      <a href="#" class="footer-social" data-cursor-hover aria-label="Instagram">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a href="#" class="footer-social" data-cursor-hover aria-label="Dribbble">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"/><path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"/><path d="M8.56 2.75c4.37 6 6.56 11.5 7.37 19.03"/></svg>
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copy">&copy; 2026 NWS Media. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

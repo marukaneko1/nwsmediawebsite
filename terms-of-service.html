@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script>document.documentElement.classList.add('js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — NWS Media</title>
+  <meta name="description" content="NWS Media Terms of Service. Read the terms and conditions governing the use of our website and services.">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="canonical" href="https://nwsmedia.com/terms-of-service">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    :root {
+      --background: #0a0a0a;
+      --foreground: #fafafa;
+      --muted-foreground: #a1a1aa;
+      --border: #27272a;
+      --brand-blue: #3b82f6;
+      --brand-blue-dark: #1e3a8a;
+      --brand-blue-light: #bfdbfe;
+      --foreground-rgb: 250, 250, 250;
+      --brand-blue-rgb: 59, 130, 246;
+      --font-bebas: 'Bebas Neue', sans-serif;
+      --font-outfit: 'Outfit', sans-serif;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-outfit);
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--brand-blue); color: var(--foreground); }
+    a { color: inherit; text-decoration: none; }
+
+    #noise-grain {
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.35;
+      mix-blend-mode: overlay;
+    }
+
+    .legal-header {
+      border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+    }
+    .legal-logo {
+      font-family: var(--font-bebas);
+      font-size: 1.25rem;
+      letter-spacing: 0.12em;
+      color: var(--foreground);
+      transition: color 0.3s;
+    }
+    .legal-logo:hover { color: var(--brand-blue-light); }
+    .legal-back {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+      display: flex; align-items: center; gap: 10px;
+      transition: color 0.3s;
+    }
+    .legal-back:hover { color: var(--foreground); }
+    .legal-back-arrow {
+      width: 24px; height: 1px;
+      background: var(--muted-foreground);
+      transition: width 0.3s, background 0.3s;
+    }
+    .legal-back:hover .legal-back-arrow { width: 36px; background: var(--foreground); }
+
+    .legal-body h2 {
+      font-family: var(--font-bebas);
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--foreground);
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+    }
+
+    .legal-body p, .legal-body li {
+      font-weight: 300;
+      font-size: clamp(0.85rem, 1vw, 0.95rem);
+      line-height: 1.9;
+      color: rgba(var(--foreground-rgb), 0.55);
+    }
+
+    .legal-body ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .legal-body li {
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .legal-body li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      font-size: 10px;
+      opacity: 0.5;
+      top: 9px;
+    }
+
+    .legal-body strong { color: var(--foreground); font-weight: 500; }
+    .legal-body a { color: var(--brand-blue-light); transition: color 0.3s; }
+    .legal-body a:hover { color: var(--brand-blue); }
+
+    .legal-footer {
+      border-top: 1px solid rgba(var(--foreground-rgb), 0.06);
+    }
+
+    :focus-visible {
+      outline: 2px solid rgba(var(--brand-blue-rgb), 0.8);
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="noise-grain"></div>
+
+  <div class="relative z-10 min-h-screen flex flex-col">
+
+    <header class="legal-header w-full px-6 sm:px-10 py-5 flex items-center justify-between">
+      <a href="index.html" class="legal-logo">NWS</a>
+      <a href="index.html" class="legal-back">
+        <span class="legal-back-arrow"></span>
+        Back to Home
+      </a>
+    </header>
+
+    <main class="flex-1 w-full max-w-[760px] mx-auto px-6 sm:px-10 py-12 sm:py-20">
+
+      <div class="mb-4">
+        <span class="font-outfit text-[9px] tracking-[0.35em] uppercase" style="color: var(--muted-foreground);">Legal</span>
+      </div>
+      <h1 class="font-bebas text-[clamp(2.5rem,6vw,4rem)] leading-[0.92] tracking-[-0.01em] uppercase mb-3">Terms of Service</h1>
+      <p class="font-outfit text-sm" style="color: var(--muted-foreground);">Last updated: March 8, 2026</p>
+
+      <div class="legal-body mt-10">
+
+        <h2>1. Agreement to Terms</h2>
+        <p>
+          By accessing or using the website operated by NWS Media ("we," "our," or "us") located at <strong>nwsmedia.com</strong> (the "Site"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to all of these Terms, you must not access or use the Site. We reserve the right to modify these Terms at any time. Changes take effect immediately upon posting. Your continued use of the Site constitutes acceptance of the modified Terms.
+        </p>
+
+        <h2>2. Services Overview</h2>
+        <p>
+          NWS Media provides luxury web design, custom software development, proprietary lead generation tools, local SEO services, and related digital services for businesses (collectively, the "Services"). The specific scope, deliverables, timeline, and pricing of any engagement will be defined in a separate project proposal or service agreement between you and NWS Media.
+        </p>
+
+        <h2>3. Eligibility</h2>
+        <p>
+          You must be at least 18 years of age and have the legal authority to enter into a binding agreement to use the Site and engage our Services. By submitting a qualification form or scheduling a discovery call, you represent that all information provided is accurate and complete.
+        </p>
+
+        <h2>4. Qualification & Engagement Process</h2>
+        <p>Submitting a form or booking a call through the Site does not guarantee that we will enter into a service agreement with you. Our engagement process is as follows:</p>
+        <ul>
+          <li>You submit a qualification form or book a discovery call through the Site.</li>
+          <li>We review your submission and assess mutual fit based on industry, scope, timeline, and budget.</li>
+          <li>If approved, we deliver a custom proposal outlining scope, deliverables, pricing, and timeline.</li>
+          <li>A formal service agreement must be signed by both parties before any work begins.</li>
+          <li>We reserve the right to decline any prospective engagement at our sole discretion.</li>
+        </ul>
+
+        <h2>5. Pricing & Payment</h2>
+        <ul>
+          <li>All pricing displayed on the Site is indicative and subject to change based on project scope and requirements.</li>
+          <li>Final pricing will be outlined in your custom proposal and formalized in the signed service agreement.</li>
+          <li>A non-refundable deposit (typically 50%) is required before any work begins, unless otherwise agreed in writing.</li>
+          <li>Remaining balance is due upon project completion and final delivery, unless a milestone-based payment schedule is specified.</li>
+          <li>Late payments may incur a fee of 1.5% per month on outstanding balances.</li>
+          <li>All payments are in U.S. Dollars (USD) unless otherwise specified.</li>
+        </ul>
+
+        <h2>6. Intellectual Property</h2>
+        <p><strong>Our Property:</strong></p>
+        <ul>
+          <li>All content on the Site — including text, graphics, logos, design elements, animations, code, and multimedia — is the property of NWS Media and is protected by copyright, trademark, and other intellectual property laws.</li>
+          <li>You may not reproduce, distribute, modify, or create derivative works from any Site content without our prior written consent.</li>
+        </ul>
+        <p style="margin-top: 1rem;"><strong>Client Deliverables:</strong></p>
+        <ul>
+          <li>Upon full payment, ownership of custom deliverables (website code, design files, custom software) transfers to the client as specified in the signed service agreement.</li>
+          <li>NWS Media retains the right to showcase completed work in our portfolio and marketing materials unless otherwise agreed in writing.</li>
+          <li>Pre-existing tools, frameworks, proprietary code libraries, and methodologies used in the creation of deliverables remain the property of NWS Media.</li>
+        </ul>
+
+        <h2>7. Client Responsibilities</h2>
+        <p>When engaging our Services, you agree to:</p>
+        <ul>
+          <li>Provide all requested content, assets, credentials, and feedback in a timely manner.</li>
+          <li>Designate a single point of contact authorized to make project decisions and approvals.</li>
+          <li>Review and approve deliverables within the timeframes specified in the service agreement.</li>
+          <li>Ensure that all materials you provide do not infringe on any third-party intellectual property rights.</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          Failure to provide required materials or feedback within agreed timeframes may result in project delays and additional charges.
+        </p>
+
+        <h2>8. Revisions & Scope Changes</h2>
+        <ul>
+          <li>Each project tier includes a defined number of revision rounds as outlined in the service agreement.</li>
+          <li>Revisions beyond the agreed scope, or changes to the original project brief, constitute "scope changes" and may incur additional fees.</li>
+          <li>Scope changes will be documented in writing and require mutual agreement before implementation.</li>
+        </ul>
+
+        <h2>9. Project Timeline & Delivery</h2>
+        <ul>
+          <li>Estimated timelines are provided in good faith but are not guaranteed, as delivery depends on client responsiveness and scope complexity.</li>
+          <li>NWS Media is not liable for delays caused by late client feedback, incomplete materials, or third-party service outages.</li>
+          <li>We will communicate proactively if timelines need adjustment.</li>
+        </ul>
+
+        <h2>10. Refund & Cancellation Policy</h2>
+        <ul>
+          <li>The initial deposit is non-refundable once work has begun.</li>
+          <li>If you cancel a project before completion, you are responsible for payment of all work completed to date, billed at our standard hourly rate.</li>
+          <li>If NWS Media is unable to deliver the agreed-upon Services, we will refund any payments for undelivered work.</li>
+        </ul>
+
+        <h2>11. Warranties & Disclaimers</h2>
+        <p>
+          The Site and Services are provided on an <strong>"as is"</strong> and <strong>"as available"</strong> basis. To the fullest extent permitted by law, NWS Media disclaims all warranties, express or implied, including but not limited to:
+        </p>
+        <ul>
+          <li>Implied warranties of merchantability, fitness for a particular purpose, and non-infringement.</li>
+          <li>Guarantees of specific business outcomes, revenue increases, search engine rankings, or traffic volumes.</li>
+          <li>Uninterrupted, error-free, or secure operation of the Site or any delivered software.</li>
+        </ul>
+        <p style="margin-top: 1rem;">
+          While we employ industry best practices, results depend on numerous external factors beyond our control, including market conditions, client actions, and third-party platform changes.
+        </p>
+
+        <h2>12. Limitation of Liability</h2>
+        <p>
+          To the maximum extent permitted by applicable law, NWS Media shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from or related to your use of the Site or our Services, including but not limited to loss of revenue, profits, data, or business opportunities. Our total liability for any claim shall not exceed the total amount paid by you to NWS Media under the applicable service agreement during the twelve (12) months preceding the claim.
+        </p>
+
+        <h2>13. Indemnification</h2>
+        <p>
+          You agree to indemnify, defend, and hold harmless NWS Media, its owners, employees, and affiliates from and against any claims, damages, losses, liabilities, and expenses (including reasonable attorney's fees) arising from: (a) your use of the Site or Services; (b) your violation of these Terms; (c) your violation of any third-party rights; or (d) any content or materials you provide to us.
+        </p>
+
+        <h2>14. Third-Party Links & Services</h2>
+        <p>
+          The Site may contain links to third-party websites or integrate with third-party services (e.g., Calendly, Stripe, Google). We are not responsible for the content, privacy practices, or terms of any third-party sites or services. Your interactions with third parties are governed by their respective terms and policies.
+        </p>
+
+        <h2>15. Confidentiality</h2>
+        <p>
+          Both parties agree to keep confidential any proprietary or sensitive information disclosed during the course of an engagement, including business strategies, technical specifications, pricing structures, and client data. This obligation survives the termination of any service agreement.
+        </p>
+
+        <h2>16. Governing Law & Disputes</h2>
+        <p>
+          These Terms shall be governed by and construed in accordance with the laws of the State of New York, without regard to conflict of law principles. Any disputes arising from these Terms or the Services shall be resolved through good-faith negotiation. If unresolved, disputes shall be submitted to binding arbitration in New York, NY, in accordance with the rules of the American Arbitration Association.
+        </p>
+
+        <h2>17. Severability</h2>
+        <p>
+          If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall continue in full force and effect. The invalid provision will be modified to the minimum extent necessary to make it enforceable while preserving its original intent.
+        </p>
+
+        <h2>18. Entire Agreement</h2>
+        <p>
+          These Terms, together with our <a href="privacy-policy.html">Privacy Policy</a> and any signed service agreement, constitute the entire agreement between you and NWS Media regarding the subject matter herein. These Terms supersede any prior agreements or communications.
+        </p>
+
+        <h2>19. Contact Us</h2>
+        <p>
+          If you have any questions about these Terms of Service, please contact us at:
+        </p>
+        <p style="margin-top: 1rem;">
+          <strong>NWS Media</strong><br>
+          Email: <a href="mailto:info@nwsmedia.com">info@nwsmedia.com</a><br>
+          Website: <a href="https://nwsmedia.com">nwsmedia.com</a>
+        </p>
+
+      </div>
+    </main>
+
+    <footer class="legal-footer w-full px-6 sm:px-10 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p class="font-outfit text-[9px] tracking-[0.15em] uppercase" style="color: rgba(var(--foreground-rgb), 0.2);">&copy; 2026 NWS Media. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="privacy-policy.html" class="font-outfit text-[9px] tracking-[0.15em] uppercase" style="color: rgba(var(--foreground-rgb), 0.2); transition: color 0.3s;">Privacy Policy</a>
+        <a href="terms-of-service.html" class="font-outfit text-[9px] tracking-[0.15em] uppercase" style="color: rgba(var(--foreground-rgb), 0.35); transition: color 0.3s;">Terms of Service</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof gsap === 'undefined') return;
+      gsap.from('main', { opacity: 0, y: 30, duration: 0.8, delay: 0.1, ease: 'power3.out' });
+      gsap.from('header', { opacity: 0, y: -15, duration: 0.6, delay: 0.05, ease: 'power3.out' });
+    });
+  </script>
+
+</body>
+</html>
