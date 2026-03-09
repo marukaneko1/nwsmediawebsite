@@ -91,6 +91,66 @@
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Structured Data — Organization + WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://nwsmedia.com/#organization",
+        "name": "NWS Media",
+        "url": "https://nwsmedia.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://nwsmedia.com/IMG_8603.PNG",
+          "width": 1024,
+          "height": 1024
+        },
+        "email": "info@nwsmedia.com",
+        "description": "Luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO for service businesses.",
+        "areaServed": {
+          "@type": "Country",
+          "name": "US"
+        },
+        "sameAs": []
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://nwsmedia.com/#website",
+        "name": "NWS Media",
+        "url": "https://nwsmedia.com",
+        "publisher": { "@id": "https://nwsmedia.com/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://nwsmedia.com/#webpage",
+        "url": "https://nwsmedia.com",
+        "name": "NWS Media — We Build What You Imagine",
+        "description": "NWS Media is a luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO for service businesses.",
+        "isPartOf": { "@id": "https://nwsmedia.com/#website" },
+        "about": { "@id": "https://nwsmedia.com/#organization" }
+      },
+      {
+        "@type": "Service",
+        "serviceType": "Web Design and Development",
+        "provider": { "@id": "https://nwsmedia.com/#organization" },
+        "areaServed": { "@type": "Country", "name": "US" },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Web Services",
+          "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Luxury Custom Websites" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "In-House Software Development" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Proprietary Lead Scrapers" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Local SEO & Brand Identity" } }
+          ]
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
