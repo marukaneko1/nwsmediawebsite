@@ -281,13 +281,15 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
 }
 
 .pill-logo {
-  font-family: var(--font-bebas);
-  font-size: 20px;
-  letter-spacing: 0.08em;
-  color: var(--foreground);
   margin-right: 8px;
   flex-shrink: 0;
-  transition: color 0.4s;
+  display: flex;
+  align-items: center;
+}
+.pill-logo-img {
+  height: 22px;
+  width: auto;
+  display: block;
 }
 
 .pill-list {
@@ -1155,12 +1157,12 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
 .footer-brand { flex: 0 0 280px; }
 
 .footer-logo {
-  font-family: var(--font-bebas);
-  font-size: 48px;
-  letter-spacing: 0.08em;
-  color: var(--foreground);
-  line-height: 1;
   margin-bottom: 16px;
+}
+.footer-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
 }
 
 .footer-tagline {
@@ -1500,7 +1502,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
     font-size: 9px;
     padding: 8px 14px;
   }
-  .pill-logo { font-size: 18px; }
+  .pill-logo-img { height: 18px; }
 }
 
 @media (max-width: 480px) {
