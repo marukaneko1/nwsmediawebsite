@@ -11,14 +11,14 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="NWS Media — See If You Qualify">
   <meta property="og:description" content="Apply to work with NWS Media. Luxury websites, custom software, and video production for service businesses.">
-  <meta property="og:url" content="https://qualify.nwsmedia.com">
+  <meta property="og:url" content="https://nwsmedia.com/qualify">
   <meta property="og:image" content="https://nwsmedia.com/og-image.jpg">
 
   <!-- Favicons -->
-  <link rel="icon" href="favicon.ico" sizes="48x48">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" href="../favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -414,15 +414,33 @@
     @media (max-width: 768px) {
       #cursor-dot, #cursor-ring { display: none; }
       body { cursor: auto; }
-      .checkbox-label { min-width: 100%; }
+      .checkbox-label { min-width: 100%; font-size: 14px; }
       .form-card { transform: none !important; -webkit-backdrop-filter: none; backdrop-filter: none; }
       .stat-pill { font-size: 0.68rem; padding: 6px 12px; }
+      .form-input { font-size: 16px; padding: 12px 16px; min-height: 44px; }
+      .submit-btn { min-height: 52px; padding: 16px 24px; }
+      .field-label { font-size: 8px; margin-bottom: 6px; }
+      .trust-row { font-size: 0.72rem; }
+    }
+    @media (max-width: 480px) {
+      .form-input { padding: 12px 14px; }
+      .checkbox-label { padding: 12px 14px; font-size: 13px; }
+      .stat-pill { font-size: 0.62rem; padding: 5px 10px; gap: 6px; }
     }
     @media (max-width: 380px) {
-      /* Very small phones */
-      .form-input { padding: 12px 14px; }
-      .checkbox-label { padding: 12px 14px; }
+      .form-input { padding: 10px 12px; }
+      .checkbox-label { padding: 10px 12px; }
     }
+
+    .mobile-popup-overlay {
+      position: fixed; inset: 0; z-index: 11000;
+      background: rgba(0, 0, 0, 0.7);
+      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      padding: 24px; opacity: 0; transition: opacity 0.4s ease;
+    }
+    .mobile-popup-overlay.visible { opacity: 1; }
+    @media (min-width: 769px) { .mobile-popup-overlay { display: none !important; } }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -438,6 +456,18 @@
   </style>
 </head>
 <body>
+
+  <!-- ═══ MOBILE EXPERIENCE POPUP ═══ -->
+  <div class="mobile-popup-overlay" id="mobile-popup">
+    <div class="mobile-popup" style="background: rgba(20, 20, 22, 0.95); border: 1px solid rgba(250,250,250,0.08); max-width: 340px; width: 100%; padding: 36px 28px 28px; text-align: center;">
+      <div style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin: 0 auto 20px; border: 1px solid rgba(59,130,246,0.2); border-radius: 12px; background: rgba(59,130,246,0.06); color: #bfdbfe;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div style="font-family: var(--font-bebas); font-size: 22px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--foreground); margin-bottom: 10px;">Best on Desktop</div>
+      <p style="font-family: var(--font-outfit); font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--muted-foreground); margin-bottom: 24px;">For the best experience please use a laptop or iPad</p>
+      <button id="mobile-popup-close" style="font-family: var(--font-outfit); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 32px; background: var(--brand-blue); color: var(--foreground); border: 1px solid var(--brand-blue); cursor: pointer; width: 100%;">Got It</button>
+    </div>
+  </div>
 
   <!-- ═══ CUSTOM CURSOR ═══ -->
   <div id="cursor-dot"></div>
@@ -463,10 +493,6 @@
   <!-- ═══ MAIN CONTENT ═══ -->
   <div class="relative z-10 min-h-screen flex flex-col overflow-x-hidden">
 
-    <!-- Header — Logo only, no nav links -->
-    <header class="w-full px-4 sm:px-10 py-5 sm:py-6 flex items-center justify-center anim-element">
-      <span class="logo" data-cursor-hover><img src="IMG_8603.PNG" alt="NWS Media" style="height: 28px; width: auto;"></span>
-    </header>
 
     <!-- Hero + Form -->
     <main class="flex-1 w-full max-w-[1200px] mx-auto px-4 sm:px-8 lg:px-12 pb-12 sm:pb-20 pt-6 sm:pt-8 lg:pt-12">
@@ -1081,7 +1107,7 @@
 
       // Budget-based routing
       if (budget === 'under-3000') {
-        window.location.href = 'under-review.html';
+        window.location.href = '../under-review.html';
       } else {
         window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
       }
@@ -1122,6 +1148,23 @@
     initCheckboxes();
     initFormRouting();
   });
+  </script>
+
+  <script>
+  (function() {
+    if (window.innerWidth >= 769) return;
+    var popup = document.getElementById('mobile-popup');
+    if (!popup || localStorage.getItem('nws_mobile_popup_seen')) return;
+    popup.style.display = 'flex';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() { popup.classList.add('visible'); });
+    });
+    document.getElementById('mobile-popup-close').addEventListener('click', function() {
+      popup.classList.remove('visible');
+      setTimeout(function() { popup.style.display = 'none'; }, 400);
+      localStorage.setItem('nws_mobile_popup_seen', '1');
+    });
+  })();
   </script>
 </body>
 </html>

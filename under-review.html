@@ -271,6 +271,18 @@
     <div class="loader-tagline">Limitless Creation &mdash; We Build What You Imagine</div>
   </div>
 
+  <!-- ═══ MOBILE EXPERIENCE POPUP ═══ -->
+  <div class="mobile-popup-overlay" id="mobile-popup" style="position:fixed;inset:0;z-index:11000;background:rgba(0,0,0,0.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity 0.4s ease;">
+    <div style="background:rgba(20,20,22,0.95);border:1px solid rgba(250,250,250,0.08);max-width:340px;width:100%;padding:36px 28px 28px;text-align:center;">
+      <div style="display:flex;align-items:center;justify-content:center;width:48px;height:48px;margin:0 auto 20px;border:1px solid rgba(59,130,246,0.2);border-radius:12px;background:rgba(59,130,246,0.06);color:#bfdbfe;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:0.05em;text-transform:uppercase;color:#fafafa;margin-bottom:10px;">Best on Desktop</div>
+      <p style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:300;line-height:1.7;color:#a1a1aa;margin-bottom:24px;">For the best experience please use a laptop or iPad</p>
+      <button id="mobile-popup-close" style="font-family:'Outfit',sans-serif;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;padding:14px 32px;background:#3b82f6;color:#fafafa;border:1px solid #3b82f6;cursor:pointer;width:100%;">Got It</button>
+    </div>
+  </div>
+
   <!-- ═══ BACKGROUND AURA ═══ -->
   <div class="bg-aura"></div>
 
@@ -600,6 +612,23 @@
     await runLoader();
     animatePage();
   });
+</script>
+
+<script>
+(function() {
+  if (window.innerWidth >= 769) return;
+  var popup = document.getElementById('mobile-popup');
+  if (!popup || localStorage.getItem('nws_mobile_popup_seen')) return;
+  popup.style.display = 'flex';
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() { popup.classList.add('visible'); });
+  });
+  document.getElementById('mobile-popup-close').addEventListener('click', function() {
+    popup.classList.remove('visible');
+    setTimeout(function() { popup.style.display = 'none'; }, 400);
+    localStorage.setItem('nws_mobile_popup_seen', '1');
+  });
+})();
 </script>
 
 </body>
