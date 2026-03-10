@@ -1452,25 +1452,42 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   #pill-nav,
   #pill-nav.nav-scrolled,
   #pill-nav.nav-scrolled.nav-deep {
-    top: 12px;
-    max-width: calc(100% - 32px);
-    padding: 6px 12px 6px 16px;
-    background: rgba(0, 0, 0, 0.6);
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 100%;
+    padding: 10px 5vw;
+    background: rgba(0, 0, 0, 0.75);
     -webkit-backdrop-filter: blur(32px) saturate(1.6);
     backdrop-filter: blur(32px) saturate(1.6);
-    border-color: rgba(var(--foreground-rgb), 0.1);
-    border-radius: 100px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    border-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(var(--foreground-rgb), 0.08);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
   }
   #pill-nav.show {
+    transform: translateX(-50%) translateY(0);
     transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  .pill-list { display: none; }
-  .pill-cta { margin-left: auto; }
-  .pill-logo-img { height: 18px; }
+  .pill-list {
+    display: flex;
+    gap: 0;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .pill-list .pill {
+    font-size: 8px;
+    padding: 8px 10px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+  }
+  .pill-cta { margin-left: auto; flex-shrink: 0; }
+  .pill-logo-img { height: 20px; }
   #pill-nav .pill-cta {
-    font-size: 9px;
-    padding: 8px 16px;
+    font-size: 8px;
+    padding: 8px 14px;
+    white-space: nowrap;
   }
 
   /* Hero */
@@ -1543,7 +1560,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   /* Cursor off */
   #cursor-dot, #cursor-ring { display: none; }
   body { cursor: auto; }
-  #squares-canvas { display: none; }
+  #squares-canvas { opacity: 0.35; }
 
   /* Disable 3D tilt on touch devices */
   .magic-bento,
@@ -1555,6 +1572,21 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
 }
 
 @media (max-width: 480px) {
+  #pill-nav,
+  #pill-nav.nav-scrolled,
+  #pill-nav.nav-scrolled.nav-deep {
+    padding: 8px 4vw;
+  }
+  .pill-list .pill {
+    font-size: 7px;
+    padding: 6px 6px;
+    letter-spacing: 0.04em;
+  }
+  #pill-nav .pill-cta {
+    font-size: 7px;
+    padding: 7px 10px;
+  }
+  .pill-logo-img { height: 16px; }
   .footer-columns { grid-template-columns: 1fr; gap: 24px; }
   .hero-bottom { max-width: 100%; }
   .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 16px; }

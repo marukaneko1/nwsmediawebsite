@@ -506,15 +506,15 @@ function initPillNav() {
    SQUARES CANVAS BACKGROUND
    ═══════════════════════════════════════════════════════════════════════════ */
 function initSquares() {
-  if (isTouchDevice || isMobileViewport()) return;
   const canvas = document.getElementById('squares-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  const squareSize = 40;
+  const mobile = isMobileViewport();
+  const squareSize = mobile ? 30 : 40;
   const borderColor = '#222222';
   const hoverFillColor = '#002266';
-  const speed = 1;
+  const speed = mobile ? 0.5 : 1;
 
   let numX, numY;
   const gridOffset = { x: 0, y: 0 };
