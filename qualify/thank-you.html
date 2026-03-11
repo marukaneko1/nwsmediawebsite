@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Meta Pixel — fires Lead event on page load -->
+  <!-- Direct image pixel fires — instant, no JS dependency -->
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1595015748370906&ev=PageView&noscript=1"/>
+  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1595015748370906&ev=Lead&noscript=1"/>
+
+  <!-- Meta Pixel — full JS version (fires when fbevents.js loads) -->
   <script>
   !function(f,b,e,v,n,t,s)
   {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -18,7 +22,10 @@
   fbq('track', 'PageView');
   fbq('track', 'Lead');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1595015748370906&ev=Lead&noscript=1"/></noscript>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1595015748370906&ev=PageView&noscript=1"/>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1595015748370906&ev=Lead&noscript=1"/>
+  </noscript>
 
   <title>Thank You — NWS Media</title>
 
@@ -106,19 +113,39 @@
     </div>
     <h1>Application Received</h1>
     <p>Thanks for applying. You'll be redirected to book your discovery call in a moment.</p>
-    <p class="redirect-note">Redirecting in <span id="countdown">2</span> seconds&hellip;<br>
+    <p class="redirect-note">Redirecting in <span id="countdown">5</span> seconds&hellip;<br>
     or <a href="https://calendly.com/shunya-nwsmedia/30min">click here</a> to book now</p>
   </div>
 
   <script>
-    var seconds = 2;
+    var CALENDLY = 'https://calendly.com/shunya-nwsmedia/30min';
+    var redirected = false;
+
+    function doRedirect() {
+      if (redirected) return;
+      redirected = true;
+      window.location.href = CALENDLY;
+    }
+
+    // Wait for fbevents.js to load and process, then redirect
+    var checkPixel = setInterval(function() {
+      if (window.fbq && window.fbq.loaded) {
+        clearInterval(checkPixel);
+        // Give 500ms for the network requests to actually send
+        setTimeout(doRedirect, 500);
+      }
+    }, 200);
+
+    // Fallback countdown — redirect after 5s no matter what
+    var seconds = 5;
     var el = document.getElementById('countdown');
-    var timer = setInterval(function() {
+    var fallback = setInterval(function() {
       seconds--;
       if (el) el.textContent = seconds;
       if (seconds <= 0) {
-        clearInterval(timer);
-        window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
+        clearInterval(fallback);
+        clearInterval(checkPixel);
+        doRedirect();
       }
     }, 1000);
   </script>
