@@ -118,34 +118,14 @@
   </div>
 
   <script>
-    var CALENDLY = 'https://calendly.com/shunya-nwsmedia/30min';
-    var redirected = false;
-
-    function doRedirect() {
-      if (redirected) return;
-      redirected = true;
-      window.location.href = CALENDLY;
-    }
-
-    // Wait for fbevents.js to load and process, then redirect
-    var checkPixel = setInterval(function() {
-      if (window.fbq && window.fbq.loaded) {
-        clearInterval(checkPixel);
-        // Give 500ms for the network requests to actually send
-        setTimeout(doRedirect, 500);
-      }
-    }, 200);
-
-    // Fallback countdown — redirect after 5s no matter what
     var seconds = 5;
     var el = document.getElementById('countdown');
-    var fallback = setInterval(function() {
+    var timer = setInterval(function() {
       seconds--;
       if (el) el.textContent = seconds;
       if (seconds <= 0) {
-        clearInterval(fallback);
-        clearInterval(checkPixel);
-        doRedirect();
+        clearInterval(timer);
+        window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
       }
     }, 1000);
   </script>
