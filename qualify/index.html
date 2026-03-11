@@ -1059,12 +1059,16 @@
 
   /* ═══════════════════════════════════════════════════════════════════════════
      7. FORM SUBMISSION + BUDGET ROUTING LOGIC
+     Formspree: same endpoint as main site (f/mojkjqoe) — qualify submissions
+     include source: 'qualify' and _subject for inbox filtering.
      ═══════════════════════════════════════════════════════════════════════════ */
   function initFormRouting() {
-    document.getElementById('qualify-form').addEventListener('submit', (e) => {
+    const form = document.getElementById('qualify-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const form = e.target;
       const budget = form.budget.value;
 
       // Validate required fields
@@ -1092,9 +1096,9 @@
         services.push(cb.value);
       });
 
-      // Submit to Formspree
+      // Submit to Formspree (same endpoint as nwsmedia.com newsletter)
       const data = {
-        _subject: 'New Qualification Submission — NWS Media',
+        _subject: 'New Qualification Submission — NWS Media (nwsmedia.com/qualify)',
         fullName: form.fullName.value,
         email: form.email.value,
         phone: form.phone.value,
@@ -1102,20 +1106,30 @@
         services: services.join(', '),
         timeline: form.timeline.value,
         budget: form.budget.value,
-        source: 'qualify'
+        source: 'qualify',
+        page: 'qualify'
       };
 
-      fetch('https://formspree.io/f/mojkjqoe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
-      }).then(res => {
-        if (!res.ok) console.warn('Formspree submission issue:', res.status);
-      }).catch(err => {
-        console.warn('Formspree error:', err);
-      });
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const btnText = submitBtn ? submitBtn.querySelector('span') : null;
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.textContent = 'Sending…';
 
-      // Budget-based routing
+      try {
+        const res = await fetch('https://formspree.io/f/mojkjqoe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) console.warn('Formspree submission issue:', res.status);
+      } catch (err) {
+        console.warn('Formspree error:', err);
+      }
+
+      if (btnText) btnText.textContent = 'Apply To Work With Us';
+      if (submitBtn) submitBtn.disabled = false;
+
+      // Budget-based routing (after Formspree attempt)
       if (budget === 'under-3000') {
         window.location.href = '../under-review.html';
       } else {

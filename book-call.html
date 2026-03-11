@@ -587,7 +587,7 @@
     var form = document.getElementById('book-qualify-form');
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
 
       var budget = form.budget.value;
@@ -627,19 +627,29 @@
         services: services.join(', '),
         timeline: form.timeline.value,
         budget: form.budget.value,
-        source: 'book-call'
+        source: 'book-call',
+        page: 'book-call'
       };
 
-      // Submit to Formspree
-      fetch('https://formspree.io/f/mojkjqoe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
-      }).then(function(res) {
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var btnText = submitBtn ? submitBtn.querySelector('span') : null;
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.textContent = 'Sending…';
+
+      // Await Formspree — must complete BEFORE any redirect/navigation
+      try {
+        var res = await fetch('https://formspree.io/f/mojkjqoe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        });
         if (!res.ok) console.warn('Formspree submission issue:', res.status);
-      }).catch(function(err) {
+      } catch (err) {
         console.warn('Formspree error:', err);
-      });
+      }
+
+      if (btnText) btnText.textContent = 'Apply To Work With Us';
+      if (submitBtn) submitBtn.disabled = false;
 
       // Under $3k → redirect to under-review page
       if (budget === 'under-3000') {
