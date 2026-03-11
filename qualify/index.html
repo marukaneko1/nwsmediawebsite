@@ -1118,21 +1118,11 @@
         console.warn('Formspree error:', err);
       }
 
-      // Meta Pixel: Lead conversion event
-      if (typeof fbq === 'function') {
-        fbq('track', 'Lead', {
-          content_name: 'Qualify Form',
-          content_category: data.businessType,
-          value: data.budget,
-          currency: 'USD'
-        });
-      }
-
       if (btnText) btnText.textContent = 'Apply To Work With Us';
       if (submitBtn) submitBtn.disabled = false;
 
-      // Redirect to Calendly after submission
-      window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
+      // Redirect to thank-you page (fires Lead pixel event on load)
+      window.location.href = 'thank-you.html';
     });
   }
 
