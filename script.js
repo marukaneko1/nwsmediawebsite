@@ -1002,6 +1002,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
       }).then(res => {
         if (res.ok) {
+          if (typeof fbq === 'function') fbq('track', 'Subscribe');
           emailInput.value = '';
           emailInput.placeholder = 'Subscribed ✓';
           setTimeout(() => { emailInput.placeholder = 'you@company.com'; }, 3000);
