@@ -442,16 +442,6 @@
       .checkbox-label { padding: 10px 12px; }
     }
 
-    .mobile-popup-overlay {
-      position: fixed; inset: 0; z-index: 11000;
-      background: rgba(0, 0, 0, 0.7);
-      -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
-      display: none; align-items: center; justify-content: center;
-      padding: 24px; opacity: 0; transition: opacity 0.4s ease;
-    }
-    .mobile-popup-overlay.visible { opacity: 1; }
-    @media (min-width: 769px) { .mobile-popup-overlay { display: none !important; } }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -466,18 +456,6 @@
   </style>
 </head>
 <body>
-
-  <!-- ═══ MOBILE EXPERIENCE POPUP ═══ -->
-  <div class="mobile-popup-overlay" id="mobile-popup">
-    <div class="mobile-popup" style="background: rgba(20, 20, 22, 0.95); border: 1px solid rgba(250,250,250,0.08); max-width: 340px; width: 100%; padding: 36px 28px 28px; text-align: center;">
-      <div style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; margin: 0 auto 20px; border: 1px solid rgba(59,130,246,0.2); border-radius: 12px; background: rgba(59,130,246,0.06); color: #bfdbfe;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </div>
-      <div style="font-family: var(--font-bebas); font-size: 22px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--foreground); margin-bottom: 10px;">Best on Desktop</div>
-      <p style="font-family: var(--font-outfit); font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--muted-foreground); margin-bottom: 24px;">For the best experience please use a laptop or iPad</p>
-      <button id="mobile-popup-close" style="font-family: var(--font-outfit); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 32px; background: var(--brand-blue); color: var(--foreground); border: 1px solid var(--brand-blue); cursor: pointer; width: 100%;">Got It</button>
-    </div>
-  </div>
 
   <!-- ═══ CUSTOM CURSOR ═══ -->
   <div id="cursor-dot"></div>
@@ -645,7 +623,6 @@
                     <option value="asap">ASAP</option>
                     <option value="2-3-weeks">2-3 Weeks</option>
                     <option value="1-2-months">1-2 Months</option>
-                    <option value="exploring">Just Exploring</option>
                   </select>
                 </div>
 
@@ -654,7 +631,6 @@
                   <label class="field-label" for="budget">Estimated Budget</label>
                   <select id="budget" name="budget" class="form-input" required>
                     <option value="" disabled selected>Select your budget range</option>
-                    <option value="under-3000">Under $3,000</option>
                     <option value="3000-5000">$3,000 - $5,000</option>
                     <option value="5000-10000">$5,000 - $10,000</option>
                     <option value="10000-plus">$10,000+</option>
@@ -1129,12 +1105,8 @@
       if (btnText) btnText.textContent = 'Apply To Work With Us';
       if (submitBtn) submitBtn.disabled = false;
 
-      // Budget-based routing (after Formspree attempt)
-      if (budget === 'under-3000') {
-        window.location.href = '../under-review.html';
-      } else {
-        window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
-      }
+      // Redirect to Calendly after submission
+      window.location.href = 'https://calendly.com/shunya-nwsmedia/30min';
     });
   }
 
@@ -1174,21 +1146,5 @@
   });
   </script>
 
-  <script>
-  (function() {
-    if (window.innerWidth >= 769) return;
-    var popup = document.getElementById('mobile-popup');
-    if (!popup || localStorage.getItem('nws_mobile_popup_seen')) return;
-    popup.style.display = 'flex';
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() { popup.classList.add('visible'); });
-    });
-    document.getElementById('mobile-popup-close').addEventListener('click', function() {
-      popup.classList.remove('visible');
-      setTimeout(function() { popup.style.display = 'none'; }, 400);
-      localStorage.setItem('nws_mobile_popup_seen', '1');
-    });
-  })();
-  </script>
 </body>
 </html>

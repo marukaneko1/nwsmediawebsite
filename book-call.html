@@ -436,7 +436,6 @@
                 <option value="asap">ASAP</option>
                 <option value="2-3-weeks">2-3 Weeks</option>
                 <option value="1-2-months">1-2 Months</option>
-                <option value="exploring">Just Exploring</option>
               </select>
             </div>
 
@@ -444,7 +443,6 @@
               <label class="bc-field-label" for="bc-budget">Estimated Budget</label>
               <select id="bc-budget" name="budget" class="bc-form-input" required>
                 <option value="" disabled selected>Select your budget range</option>
-                <option value="under-3000">Under $3,000</option>
                 <option value="3000-5000">$3,000 - $5,000</option>
                 <option value="5000-10000">$5,000 - $10,000</option>
                 <option value="10000-plus">$10,000+</option>
@@ -650,12 +648,6 @@
 
       if (btnText) btnText.textContent = 'Apply To Work With Us';
       if (submitBtn) submitBtn.disabled = false;
-
-      // Under $3k → redirect to under-review page
-      if (budget === 'under-3000') {
-        window.location.href = 'under-review.html';
-        return;
-      }
 
       // Qualified → animate form out, Calendly in
       var formPanel = document.getElementById('form-panel');
