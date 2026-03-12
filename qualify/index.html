@@ -555,16 +555,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <form id="qualify-form" novalidate>
               <div class="space-y-5">
 
-                <!-- Full Name -->
+                <!-- Name -->
                 <div>
-                  <label class="field-label" for="full-name">Full Name</label>
+                  <label class="field-label" for="full-name">Name</label>
                   <input type="text" id="full-name" name="fullName" class="form-input" placeholder="John Smith" required autocomplete="name">
-                </div>
-
-                <!-- Work Email -->
-                <div>
-                  <label class="field-label" for="work-email">Work Email</label>
-                  <input type="email" id="work-email" name="email" class="form-input" placeholder="john@yourbusiness.com" required autocomplete="email">
                 </div>
 
                 <!-- Phone Number -->
@@ -572,8 +566,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                   <label class="field-label" for="phone">Phone Number</label>
                   <input type="tel" id="phone" name="phone" class="form-input" placeholder="(555) 000-0000" required autocomplete="tel">
                 </div>
-
-                <div class="form-divider"></div>
 
                 <!-- Business Type -->
                 <div>
@@ -589,70 +581,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     <option value="other">Other</option>
                   </select>
                 </div>
-
-                <!-- Service Needed (Checkboxes) -->
-                <div>
-                  <span class="field-label" id="services-label">Service Needed</span>
-                  <div class="checkbox-group" role="group" aria-labelledby="services-label">
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="services" value="web-design">
-                      <span class="check-box">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      </span>
-                      Web Design
-                    </label>
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="services" value="custom-software">
-                      <span class="check-box">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      </span>
-                      Custom Software
-                    </label>
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="services" value="lead-scraper">
-                      <span class="check-box">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      </span>
-                      Lead Scraper
-                    </label>
-                    <label class="checkbox-label">
-                      <input type="checkbox" name="services" value="video-production">
-                      <span class="check-box">
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      </span>
-                      Video Production
-                    </label>
-                  </div>
-                </div>
-
-                <div class="form-divider"></div>
-
-                <!-- Project Timeline -->
-                <div>
-                  <label class="field-label" for="timeline">Project Timeline</label>
-                  <select id="timeline" name="timeline" class="form-input" required>
-                    <option value="" disabled selected>When do you need this?</option>
-                    <option value="asap">ASAP</option>
-                    <option value="2-3-weeks">2-3 Weeks</option>
-                    <option value="1-2-months">1-2 Months</option>
-                  </select>
-                </div>
-
-                <!-- Estimated Budget -->
-                <div>
-                  <label class="field-label" for="budget">Estimated Budget</label>
-                  <select id="budget" name="budget" class="form-input" required>
-                    <option value="" disabled selected>Select your budget range</option>
-                    <option value="3000-5000">$3,000 - $5,000</option>
-                    <option value="5000-10000">$5,000 - $10,000</option>
-                    <option value="10000-plus">$10,000+</option>
-                  </select>
-                </div>
               </div>
 
               <!-- Submit Button -->
               <button type="submit" class="submit-btn mt-8" data-cursor-hover>
-                <span>Apply To Work With Us</span>
+                <span>Get Your Free Website Audit</span>
               </button>
 
               <!-- Trust Signal -->
@@ -1057,8 +990,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const budget = form.budget.value;
-
       // Validate required fields
       const required = form.querySelectorAll('[required]');
       let valid = true;
@@ -1078,22 +1009,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       if (!valid) return;
 
-      // Collect checked services
-      const services = [];
-      form.querySelectorAll('input[name="services"]:checked').forEach(cb => {
-        services.push(cb.value);
-      });
-
-      // Submit to Formspree (same endpoint as nwsmedia.com newsletter)
+      // Submit to Formspree (Name, Phone, Business Type only)
       const data = {
         _subject: 'New Qualification Submission — NWS Media (nwsmedia.com/qualify)',
         fullName: form.fullName.value,
-        email: form.email.value,
         phone: form.phone.value,
         businessType: form.businessType.value,
-        services: services.join(', '),
-        timeline: form.timeline.value,
-        budget: form.budget.value,
         source: 'qualify',
         page: 'qualify'
       };
@@ -1114,7 +1035,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         console.warn('Formspree error:', err);
       }
 
-      if (btnText) btnText.textContent = 'Apply To Work With Us';
+      if (btnText) btnText.textContent = 'Get Your Free Website Audit';
       if (submitBtn) submitBtn.disabled = false;
 
       // Redirect to thank-you page (fires Lead pixel event on load)
