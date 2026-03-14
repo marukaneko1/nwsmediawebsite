@@ -171,6 +171,9 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   align-items: center;
   justify-content: center;
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Isolate from layout to reduce CLS when fading out */
+  contain: layout paint;
+  will-change: opacity;
 }
 
 #loader-overlay.hide { opacity: 0; pointer-events: none; }
@@ -288,8 +291,9 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
 }
 .pill-logo-img {
   height: 22px;
-  width: auto;
+  width: 22px;
   display: block;
+  object-fit: contain;
 }
 
 .pill-list {
@@ -1483,7 +1487,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
     white-space: nowrap;
   }
   .pill-cta { margin-left: auto; flex-shrink: 0; }
-  .pill-logo-img { height: 20px; }
+  .pill-logo-img { height: 20px; width: 20px; }
   #pill-nav .pill-cta {
     font-size: 8px;
     padding: 8px 14px;
@@ -1586,7 +1590,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
     font-size: 7px;
     padding: 7px 10px;
   }
-  .pill-logo-img { height: 16px; }
+  .pill-logo-img { height: 16px; width: 16px; }
   .footer-columns { grid-template-columns: 1fr; gap: 24px; }
   .hero-bottom { max-width: 100%; }
   .hero-cta-row { flex-direction: column; align-items: flex-start; gap: 16px; }
