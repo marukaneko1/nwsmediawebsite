@@ -17,7 +17,7 @@
   --accent: #18181b;
   --accent-foreground: #fafafa;
   --muted: #18181b;
-  --muted-foreground: #a1a1aa;
+  --muted-foreground: #b4b4bc;
   --border: #27272a;
   --input: #27272a;
   --ring: #52525b;
@@ -212,7 +212,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   transition: opacity 0.7s 0.2s, transform 0.7s 0.2s;
 }
 
-.loader-tagline.show { opacity: 0.35; transform: translateY(0); }
+.loader-tagline.show { opacity: 0.55; transform: translateY(0); }
 
 /* ══════════════════════════════════════════════════════════════════════════
    MORPHING NAVIGATION — Full-width bar ↔ Floating pill on scroll
@@ -458,7 +458,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   font-family: var(--font-outfit);
   font-weight: 300;
   font-size: clamp(13px, 1.1vw, 16px);
-  color: rgba(var(--foreground-rgb), 0.5);
+  color: var(--muted-foreground);
   margin-top: 0;
   line-height: 1.85;
   max-width: 420px;
@@ -889,7 +889,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   font-family: var(--font-outfit);
   font-size: clamp(13px, 1.1vw, 16px);
   line-height: 1.8;
-  color: rgba(var(--foreground-rgb), 0.55);
+  color: var(--muted-foreground);
   position: relative;
   z-index: 1;
   transition: color 0.6s;
@@ -1206,7 +1206,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   font-size: 16px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(var(--foreground-rgb), 0.6);
+  color: var(--muted-foreground);
   margin-bottom: 20px;
 }
 

@@ -38,47 +38,12 @@
   <!-- Canonical -->
   <link rel="canonical" href="https://nwsmedia.com">
 
-  <!-- Fonts -->
+  <!-- Fonts: load async to avoid render-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            bebas: ['"Bebas Neue"', 'sans-serif'],
-            outfit: ['"Outfit"', 'sans-serif'],
-          },
-          colors: {
-            background: 'var(--background)',
-            foreground: 'var(--foreground)',
-            primary: { DEFAULT: 'var(--primary)', foreground: 'var(--primary-foreground)' },
-            secondary: { DEFAULT: 'var(--secondary)', foreground: 'var(--secondary-foreground)' },
-            card: { DEFAULT: 'var(--card)', foreground: 'var(--card-foreground)' },
-            accent: { DEFAULT: 'var(--accent)', foreground: 'var(--accent-foreground)' },
-            muted: { DEFAULT: 'var(--muted)', foreground: 'var(--muted-foreground)' },
-            border: 'var(--border)',
-            input: 'var(--input)',
-            ring: 'var(--ring)',
-            brand: { DEFAULT: 'var(--brand-blue)', dark: 'var(--brand-blue-dark)', light: 'var(--brand-blue-light)' },
-          },
-        },
-      },
-    }
-  </script>
-
-  <!-- Lenis Smooth Scroll -->
-  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-
-  <!-- GSAP + ScrollTrigger + Draggable + Observer -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js"></script>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" as="style">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
   <!-- FOUC Prevention: hide animated elements until GSAP takes over -->
   <style>
@@ -97,8 +62,10 @@
     .js .showreel-heading { visibility: hidden; }
   </style>
 
-  <!-- Custom Styles -->
-  <link rel="stylesheet" href="styles.css">
+  <!-- Custom Styles: load async to avoid render-blocking -->
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
 
   <!-- Structured Data — Organization + WebSite -->
   <script type="application/ld+json">
@@ -193,7 +160,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ═══ MORPHING NAVIGATION ═══ -->
   <nav id="pill-nav">
-    <a href="/" class="pill-logo" data-cursor-hover><img src="IMG_8603.PNG" alt="NWS Media" class="pill-logo-img"></a>
+    <a href="/" class="pill-logo" data-cursor-hover><img src="favicon-32x32.png" alt="NWS Media" class="pill-logo-img" width="32" height="32" fetchpriority="high"></a>
     <ul class="pill-list">
       <li><a href="#about" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">About</span><span class="pill-label-hover">About</span></span></a></li>
       <li><a href="#services" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover">Services</span></span></a></li>
@@ -538,7 +505,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="IMG_8603.PNG" alt="NWS Media" class="footer-logo-img"></div>
+        <div class="footer-logo"><img src="favicon-32x32.png" alt="NWS Media" class="footer-logo-img" loading="lazy" width="32" height="32"></div>
         <p class="footer-tagline">Limitless Creation — We Build What You Imagine.</p>
         <a href="book-call.html" class="footer-contact-btn" data-cursor-hover>Contact Us</a>
       </div>
@@ -621,7 +588,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Deferred to reduce render-blocking (Tailwind creates global, then we set config) -->
+  <script src="https://cdn.tailwindcss.com" defer></script>
+  <script defer>
+    tailwind.config = { theme: { extend: {
+      fontFamily: { bebas: ['"Bebas Neue"', 'sans-serif'], outfit: ['"Outfit"', 'sans-serif'] },
+      colors: {
+        background: 'var(--background)', foreground: 'var(--foreground)',
+        primary: { DEFAULT: 'var(--primary)', foreground: 'var(--primary-foreground)' },
+        secondary: { DEFAULT: 'var(--secondary)', foreground: 'var(--secondary-foreground)' },
+        card: { DEFAULT: 'var(--card)', foreground: 'var(--card-foreground)' },
+        accent: { DEFAULT: 'var(--accent)', foreground: 'var(--accent-foreground)' },
+        muted: { DEFAULT: 'var(--muted)', foreground: 'var(--muted-foreground)' },
+        border: 'var(--border)', input: 'var(--input)', ring: 'var(--ring)',
+        brand: { DEFAULT: 'var(--brand-blue)', dark: 'var(--brand-blue-dark)', light: 'var(--brand-blue-light)' }
+      }
+    }}};
+  </script>
+  <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Observer.min.js" defer></script>
+  <script src="script.js" defer></script>
   <script>
   (function() {
     if (window.innerWidth >= 769) return;
