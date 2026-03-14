@@ -1,5 +1,12 @@
 # NWS Media — Apache / GoDaddy: caching + Gzip for SEO & performance
 
+# Redirect HTTP to HTTPS (one canonical URL = better indexing)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
 # Enable Gzip compression
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml
