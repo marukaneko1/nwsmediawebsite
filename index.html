@@ -45,6 +45,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
+  <!-- Critical: dark background + loader shell on first paint (no white flash) -->
+  <style>
+    html, body { background-color: #0a0a0a; }
+    #loader-overlay {
+      position: fixed; inset: 0; z-index: 9000;
+      background: #0a0a0a;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+  </style>
   <!-- FOUC Prevention: hide animated elements until GSAP takes over -->
   <style>
     .js .hero-headline,
