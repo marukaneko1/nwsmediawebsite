@@ -117,6 +117,10 @@
         "about": { "@id": "https://nwsmedia.com/#organization" }
       },
       {
+        "@type": "BreadcrumbList",
+        "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nwsmedia.com/" }]
+      },
+      {
         "@type": "Service",
         "serviceType": "Web Design and Development",
         "provider": { "@id": "https://nwsmedia.com/#organization" },
@@ -544,6 +548,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <ul class="footer-col-list">
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
             <li><a href="terms-of-service.html">Terms of Service</a></li>
+            <li><a href="sitemap.html">Sitemap</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -587,15 +592,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
   </main>
 
-  <!-- ═══ MOBILE EXPERIENCE POPUP ═══ -->
-  <div class="mobile-popup-overlay" id="mobile-popup">
+  <!-- ═══ MOBILE EXPERIENCE BANNER (non-intrusive bottom bar) ═══ -->
+  <div class="mobile-popup-overlay" id="mobile-popup" role="dialog" aria-label="Viewing on mobile">
     <div class="mobile-popup">
-      <div class="mobile-popup-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      </div>
-      <div class="mobile-popup-title">Best on Desktop</div>
-      <p class="mobile-popup-text">For the best experience please use a laptop or iPad</p>
-      <button class="mobile-popup-btn" id="mobile-popup-close">Got It</button>
+      <span class="mobile-popup-text">Best experience on desktop. </span>
+      <button type="button" class="mobile-popup-btn" id="mobile-popup-close" aria-label="Dismiss">Got It</button>
     </div>
   </div>
 
@@ -628,12 +629,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var popup = document.getElementById('mobile-popup');
     if (!popup || localStorage.getItem('nws_mobile_popup_seen')) return;
     popup.style.display = 'flex';
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() { popup.classList.add('visible'); });
-    });
+    requestAnimationFrame(function() { popup.classList.add('visible'); });
     document.getElementById('mobile-popup-close').addEventListener('click', function() {
       popup.classList.remove('visible');
-      setTimeout(function() { popup.style.display = 'none'; }, 400);
+      setTimeout(function() { popup.style.display = 'none'; }, 300);
       localStorage.setItem('nws_mobile_popup_seen', '1');
     });
   })();

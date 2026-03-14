@@ -3,8 +3,15 @@
 # Redirect HTTP to HTTPS (one canonical URL = better indexing)
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
+
+  # HTTPS redirect
   RewriteCond %{HTTPS} off
   RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # Canonical extensionless URLs (serve .html so sitemap/canonical URLs don't 404)
+  RewriteRule ^privacy-policy/?$ privacy-policy.html [L]
+  RewriteRule ^terms-of-service/?$ terms-of-service.html [L]
 </IfModule>
 
 # Enable Gzip compression
