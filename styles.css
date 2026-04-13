@@ -86,6 +86,10 @@ img { max-width: 100%; display: block; }
 .js .cta-sub,
 .js .cta-btn,
 .js .service-card,
+.js .service-pill,
+.js .vertical-card,
+.js .process-step,
+.js .differentiator-item,
 .js .work-card,
 .js .pricing-card,
 .js .showreel-heading { visibility: hidden; }
@@ -118,7 +122,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* All page content sits above bg */
-#hero, .marquee-section, .value-section, .section, .cta-section, .site-footer {
+#hero, .stat-strip, .marquee-section, .value-section, .section, .cta-section, .site-footer {
   position: relative;
   z-index: 2;
 }
@@ -432,7 +436,12 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   overflow-wrap: break-word;
 }
 
-/* Hero rotating text cycle */
+/* Hero accent text */
+.hero-accent {
+  color: var(--brand-blue-light);
+}
+
+/* Hero rotating text cycle (legacy) */
 .hero-rotate {
   position: relative;
   display: inline-block;
@@ -899,6 +908,22 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   transition: color 0.6s;
 }
 
+.service-cta {
+  display: inline-block;
+  font-family: var(--font-outfit);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brand-blue-light);
+  text-decoration: none;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s;
+}
+
+.service-cta:hover { color: var(--brand-blue); }
+
 /* ─── PRICING ──────────────────────────────────────────────────────────── */
 .pricing-grid {
   display: grid;
@@ -1009,6 +1034,61 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
 }
 .pricing-card.featured .pricing-btn:hover {
   background: var(--brand-blue-dark); color: var(--foreground); border-color: var(--brand-blue-dark);
+}
+
+/* ─── FAQ ──────────────────────────────────────────────────────────────── */
+.faq-grid {
+  max-width: 800px;
+  margin: 48px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+}
+
+.faq-question {
+  font-family: var(--font-outfit);
+  font-size: clamp(14px, 1.15vw, 17px);
+  font-weight: 500;
+  color: var(--foreground);
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: color 0.3s;
+}
+
+.faq-question::-webkit-details-marker { display: none; }
+
+.faq-question::after {
+  content: '+';
+  font-family: var(--font-outfit);
+  font-size: 20px;
+  font-weight: 300;
+  flex-shrink: 0;
+  transition: transform 0.3s;
+}
+
+.faq-item[open] .faq-question::after {
+  content: '−';
+}
+
+.faq-question:hover { color: var(--brand-blue-light); }
+
+.faq-answer {
+  font-family: var(--font-outfit);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--muted-foreground);
+  padding: 0 0 24px;
+  max-width: 680px;
 }
 
 /* ─── CTA ──────────────────────────────────────────────────────────────── */
@@ -1426,6 +1506,246 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   will-change: transform, filter, opacity;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   STAT STRIP — Below hero, scroll-triggered stats
+   ═══════════════════════════════════════════════════════════════════════════ */
+.stat-strip {
+  padding: 48px 8vw;
+  border-top: 1px solid rgba(var(--foreground-rgb), 0.06);
+  border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+}
+
+.stat-strip-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-strip-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.stat-strip-value {
+  font-family: var(--font-bebas);
+  font-size: clamp(28px, 3vw, 44px);
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+  line-height: 1;
+}
+
+.stat-strip-label {
+  font-family: var(--font-outfit);
+  font-size: clamp(9px, 0.85vw, 11px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.stat-strip-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(var(--foreground-rgb), 0.1);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SERVICE PILLS — Tag chips for Infrastructure / Media sections
+   ═══════════════════════════════════════════════════════════════════════════ */
+.service-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 48px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-pill {
+  display: inline-block;
+  padding: 12px 24px;
+  font-family: var(--font-outfit);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  border: 1px solid rgba(var(--foreground-rgb), 0.12);
+  background: rgba(var(--foreground-rgb), 0.03);
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.service-pill:hover {
+  border-color: rgba(var(--brand-blue-rgb), 0.4);
+  background: rgba(var(--brand-blue-rgb), 0.06);
+  box-shadow: 0 0 16px rgba(var(--brand-blue-rgb), 0.1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   VERTICALS GRID — 6 industry cards
+   ═══════════════════════════════════════════════════════════════════════════ */
+.verticals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+
+.vertical-card {
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+.vertical-title {
+  font-family: var(--font-bebas);
+  font-size: clamp(24px, 2.2vw, 34px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin-bottom: 12px;
+  transition: color 0.6s;
+}
+
+.vertical-desc {
+  font-family: var(--font-outfit);
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.75;
+  color: var(--muted-foreground);
+  position: relative;
+  z-index: 1;
+  transition: color 0.6s;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROCESS GRID — 4 steps
+   ═══════════════════════════════════════════════════════════════════════════ */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+
+.process-step {
+  padding: 48px 32px;
+  border: 1px solid rgba(var(--foreground-rgb), 0.06);
+  transition: border-color 0.3s;
+}
+
+.process-step:hover {
+  border-color: rgba(var(--foreground-rgb), 0.12);
+}
+
+.process-number {
+  font-family: var(--font-bebas);
+  font-size: clamp(48px, 4vw, 72px);
+  color: rgba(var(--foreground-rgb), 0.08);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.process-title {
+  font-family: var(--font-bebas);
+  font-size: clamp(22px, 2vw, 30px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--foreground);
+  margin-bottom: 12px;
+}
+
+.process-desc {
+  font-family: var(--font-outfit);
+  font-size: clamp(13px, 1vw, 15px);
+  line-height: 1.75;
+  color: var(--muted-foreground);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   DIFFERENTIATOR LIST — Editorial numbered list
+   ═══════════════════════════════════════════════════════════════════════════ */
+.differentiator-list {
+  max-width: 800px;
+  margin: 48px auto 0;
+}
+
+.differentiator-item {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  padding: 32px 0;
+  border-bottom: 1px solid rgba(var(--foreground-rgb), 0.06);
+}
+
+.differentiator-item:first-child {
+  border-top: 1px solid rgba(var(--foreground-rgb), 0.06);
+}
+
+.differentiator-number {
+  font-family: var(--font-bebas);
+  font-size: clamp(28px, 2.5vw, 40px);
+  color: rgba(var(--foreground-rgb), 0.12);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 48px;
+}
+
+.differentiator-content {
+  flex: 1;
+}
+
+.differentiator-title {
+  font-family: var(--font-outfit);
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 8px;
+}
+
+.differentiator-desc {
+  font-family: var(--font-outfit);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--muted-foreground);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRICING 4-COL OVERRIDE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.pricing-grid--four {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.pricing-best-for {
+  font-family: var(--font-outfit);
+  font-size: 13px;
+  line-height: 1.7;
+  color: rgba(var(--foreground-rgb), 0.5);
+  margin-bottom: 32px;
+  flex-grow: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CTA LOCATION LINE
+   ═══════════════════════════════════════════════════════════════════════════ */
+.cta-location {
+  font-family: var(--font-outfit);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-top: 40px;
+  opacity: 0.6;
+}
+
 /* ─── RESPONSIVE ───────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-main { flex-direction: column; align-items: flex-start; gap: 40px; }
@@ -1433,10 +1753,12 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   .value-section { padding: 80px 8vw; }
   .cta-section { padding: 100px 8vw; }
   .services-grid { grid-template-columns: 1fr; }
-  .pricing-grid  { grid-template-columns: repeat(2, 1fr); }
+  .pricing-grid, .pricing-grid--four { grid-template-columns: repeat(2, 1fr); }
   .works-grid { grid-template-columns: 1fr; }
   .work-card-wide { grid-column: span 1; }
   .work-card-wide .work-image-placeholder { aspect-ratio: 16 / 9; }
+  .verticals-grid { grid-template-columns: repeat(2, 1fr); }
+  .process-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-top { flex-direction: column; gap: 48px; }
   .footer-brand { flex: none; }
   .footer-columns { justify-content: flex-start; }
@@ -1525,9 +1847,26 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   .service-title { font-size: 24px; }
 
   /* Pricing */
-  .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .pricing-grid, .pricing-grid--four { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
   .pricing-card { padding: 36px 28px 36px; }
   .pricing-price { font-size: clamp(40px, 12vw, 68px); }
+
+  /* Verticals */
+  .verticals-grid { grid-template-columns: 1fr; }
+  .vertical-card { padding: 32px 24px; }
+
+  /* Process */
+  .process-grid { grid-template-columns: 1fr; }
+  .process-step { padding: 32px 24px; }
+
+  /* Differentiator */
+  .differentiator-item { gap: 16px; padding: 24px 0; }
+  .differentiator-number { min-width: 36px; font-size: 28px; }
+
+  /* Stat Strip */
+  .stat-strip { padding: 32px 6vw; }
+  .stat-strip-inner { flex-direction: column; gap: 24px; }
+  .stat-strip-divider { width: 48px; height: 1px; }
 
   /* Works / Advantage */
   .works-grid { gap: 12px; }
@@ -1575,7 +1914,7 @@ body.cursor-hover #cursor-ring { width: 64px; height: 64px; border-color: rgba(v
   .pricing-btn { min-height: 48px; padding: 16px 24px; }
 
   /* Prevent horizontal scroll on mobile */
-  main, .section, #hero, .marquee-section, .showreel-section, .value-section, .cta-section, .site-footer { max-width: 100%; overflow-x: hidden; }
+  main, .section, #hero, .stat-strip, .marquee-section, .showreel-section, .value-section, .cta-section, .site-footer { max-width: 100%; overflow-x: hidden; }
 
   /* Cursor off */
   #cursor-dot, #cursor-ring { display: none; }
@@ -1769,6 +2108,10 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   .js .cta-sub,
   .js .cta-btn,
   .js .service-card,
+  .js .service-pill,
+  .js .vertical-card,
+  .js .process-step,
+  .js .differentiator-item,
   .js .work-card,
   .js .pricing-card,
   .js .showreel-heading {

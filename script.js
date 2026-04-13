@@ -234,9 +234,13 @@ function initTextReveal() {
   // Character-by-character masked slide-up on section headings
   const headingSelectors = [
     '.value-heading',
-    '#services .section-heading',
-    '#advantage .section-heading',
+    '#infrastructure .section-heading',
+    '#media .section-heading',
+    '#verticals .section-heading',
+    '#process .section-heading',
     '#pricing .section-heading',
+    '#difference .section-heading',
+    '#faq .section-heading',
     '.cta-heading'
   ];
 
@@ -343,25 +347,47 @@ function initScrollReveals() {
     scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=100', scrub: true },
   });
 
-  // Service cards — staggered unfold
-  const serviceCards = document.querySelectorAll('.service-card');
-  if (serviceCards.length) {
-    gsap.fromTo(serviceCards,
-      { autoAlpha: 0, y: 80, rotateX: -8, transformOrigin: 'center bottom' },
-      { autoAlpha: 1, y: 0, rotateX: 0,
-        duration: 1.0, stagger: 0.12, ease: 'power4.out',
-        scrollTrigger: { trigger: '.services-grid', start: 'top 82%', toggleActions: 'play none none none' } }
+  // Service pills — staggered fade
+  const servicePills = document.querySelectorAll('.service-pill');
+  if (servicePills.length) {
+    gsap.fromTo(servicePills,
+      { autoAlpha: 0, y: 20, filter: 'blur(4px)' },
+      { autoAlpha: 1, y: 0, filter: 'blur(0px)',
+        duration: 0.6, stagger: 0.06, ease: 'power3.out',
+        scrollTrigger: { trigger: '.service-pills', start: 'top 88%', toggleActions: 'play none none none' } }
     );
   }
 
-  // Work / Advantage cards — staggered unfold
-  const workCards = document.querySelectorAll('.work-card');
-  if (workCards.length) {
-    gsap.fromTo(workCards,
+  // Vertical cards — staggered unfold
+  const verticalCards = document.querySelectorAll('.vertical-card');
+  if (verticalCards.length) {
+    gsap.fromTo(verticalCards,
       { autoAlpha: 0, y: 80, rotateX: -8, transformOrigin: 'center bottom' },
       { autoAlpha: 1, y: 0, rotateX: 0,
-        duration: 1.0, stagger: 0.12, ease: 'power4.out',
-        scrollTrigger: { trigger: '.works-grid', start: 'top 82%', toggleActions: 'play none none none' } }
+        duration: 1.0, stagger: 0.1, ease: 'power4.out',
+        scrollTrigger: { trigger: '.verticals-grid', start: 'top 82%', toggleActions: 'play none none none' } }
+    );
+  }
+
+  // Process steps — staggered fade
+  const processSteps = document.querySelectorAll('.process-step');
+  if (processSteps.length) {
+    gsap.fromTo(processSteps,
+      { autoAlpha: 0, y: 60, rotateX: -6, transformOrigin: 'center bottom' },
+      { autoAlpha: 1, y: 0, rotateX: 0,
+        duration: 0.9, stagger: 0.12, ease: 'power4.out',
+        scrollTrigger: { trigger: '.process-grid', start: 'top 82%', toggleActions: 'play none none none' } }
+    );
+  }
+
+  // Differentiator items — staggered slide-in
+  const diffItems = document.querySelectorAll('.differentiator-item');
+  if (diffItems.length) {
+    gsap.fromTo(diffItems,
+      { autoAlpha: 0, x: -30, filter: 'blur(4px)' },
+      { autoAlpha: 1, x: 0, filter: 'blur(0px)',
+        duration: 0.7, stagger: 0.08, ease: 'power3.out',
+        scrollTrigger: { trigger: '.differentiator-list', start: 'top 85%', toggleActions: 'play none none none' } }
     );
   }
 

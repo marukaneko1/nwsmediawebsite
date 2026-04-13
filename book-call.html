@@ -11,25 +11,37 @@
   <!-- End Google Tag Manager -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Book a Free Discovery Call — NWS Media</title>
-  <meta name="description" content="Schedule a free 15-20 minute discovery call with NWS Media. Get a website audit with triage status, performance score, and SEO analysis.">
+  <title>Apply to Work with NWS Media</title>
+  <meta name="description" content="Apply to work with NWS Media. Revenue infrastructure and market positioning for service businesses. Fill out a quick qualification form to get started.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Book a Free Discovery Call — NWS Media">
-  <meta property="og:description" content="Schedule a free 15-20 minute discovery call. Get a website audit with performance score and SEO analysis.">
+  <meta property="og:title" content="Apply to Work with NWS Media">
+  <meta property="og:description" content="Apply to work with NWS Media. Revenue infrastructure and market positioning for service businesses.">
   <meta property="og:url" content="https://nwsmedia.com/book-call.html">
   <meta property="og:image" content="https://nwsmedia.com/og-image.jpg">
   <meta property="og:site_name" content="NWS Media">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Book a Free Discovery Call — NWS Media">
-  <meta name="twitter:description" content="Schedule a free 15-20 minute discovery call. Get a website audit with performance score and SEO analysis.">
+  <meta name="twitter:title" content="Apply to Work with NWS Media">
+  <meta name="twitter:description" content="Apply to work with NWS Media. Revenue infrastructure and market positioning for service businesses.">
   <meta name="twitter:image" content="https://nwsmedia.com/og-image.jpg">
 
   <!-- Canonical -->
   <link rel="canonical" href="https://nwsmedia.com/book-call.html">
+
+  <!-- Structured Data — BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://nwsmedia.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Book a Call", "item": "https://nwsmedia.com/book-call.html" }
+    ]
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" href="favicon.ico" sizes="48x48">
@@ -311,17 +323,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         Back to Home
       </a>
 
-      <div class="book-eyebrow">Free Website Audit</div>
+      <div class="book-eyebrow">Qualification</div>
 
       <h1 class="book-heading">
-        Your Website<br>Is Losing You<br>Money.
+        If You're Serious<br>About Growth,<br>We Need To Talk.
       </h1>
 
       <p class="book-body">
-        Most local businesses have a website that looks "fine" &mdash;
-        but bleeds revenue every day. Slow load times. Zero SEO.
-        No conversion strategy. We'll show you exactly where the
-        holes are with a full website audit.
+        We're selective. We work with businesses that are ready to scale &mdash;
+        not just curious about marketing. Fill out the form and find out
+        if we're a fit. We'll review your application and reach out within 24 hours.
       </p>
 
       <!-- Audit Metrics -->
@@ -348,10 +359,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <!-- What you get -->
       <ul class="book-steps">
-        <li class="book-step">Book a 15-20 minute discovery call</li>
-        <li class="book-step">We audit your site live: speed, SEO, UX</li>
-        <li class="book-step">Get a triage report with priority fixes</li>
-        <li class="book-step">Receive a custom proposal &mdash; no pressure</li>
+        <li class="book-step">Fill out the qualification form</li>
+        <li class="book-step">We review your application within 24 hours</li>
+        <li class="book-step">Strategy call to diagnose your revenue leaks</li>
+        <li class="book-step">Custom growth plan &mdash; infrastructure + media</li>
       </ul>
     </div>
 
@@ -391,16 +402,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 <option value="contractor">Contractor</option>
                 <option value="dentist">Dentist</option>
                 <option value="medspa">Med Spa</option>
-                <option value="law-firm">Law Firm</option>
-                <option value="real-estate">Real Estate</option>
-                <option value="ecommerce">E-commerce</option>
+                <option value="attorney">Attorney</option>
+                <option value="cpa">CPA / Accountant</option>
+                <option value="solar">Solar</option>
                 <option value="other">Other</option>
               </select>
             </div>
           </div>
 
           <button type="submit" class="bc-submit-btn" style="margin-top: 2rem;" data-cursor-hover>
-            <span>Get Your Free Website Audit</span>
+            <span>Submit My Application &rarr;</span>
           </button>
 
           <div class="bc-trust-row" style="margin-top: 1.25rem;">
@@ -558,7 +569,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       // Build form data (Name, Phone, Business Type only)
       var data = {
-        _subject: 'New Book-a-Call Submission — NWS Media',
+        _subject: 'New Qualification Application — NWS Media (book-call)',
         fullName: form.fullName.value,
         phone: form.phone.value,
         businessType: form.businessType.value,
@@ -583,7 +594,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         console.warn('Formspree error:', err);
       }
 
-      if (btnText) btnText.textContent = 'Get Your Free Website Audit';
+      if (btnText) btnText.textContent = 'Submit My Application →';
       if (submitBtn) submitBtn.disabled = false;
 
       // Qualified → animate form out, Calendly in

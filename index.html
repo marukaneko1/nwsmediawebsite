@@ -12,21 +12,22 @@
   <script>document.documentElement.classList.add('js');</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>NWS Media — We Build What You Imagine</title>
-  <meta name="description" content="NWS Media is a luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO for service businesses.">
+  <title>NWS Media | Revenue Infrastructure &amp; Market Positioning Agency</title>
+  <meta name="description" content="NWS Media builds the systems that make service businesses dominate their market. Infrastructure + Media. Long Island City, NY. Serving contractors, dentists, med spas, attorneys, CPAs &amp; solar companies.">
+  <meta name="keywords" content="digital marketing agency Long Island, SEO for contractors, med spa marketing, attorney marketing NYC, web design Long Island City">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="NWS Media — We Build What You Imagine">
-  <meta property="og:description" content="Luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO.">
+  <meta property="og:title" content="NWS Media | Revenue Infrastructure & Market Positioning Agency">
+  <meta property="og:description" content="NWS Media builds the systems that make service businesses dominate their market. Infrastructure + Media. Long Island City, NY.">
   <meta property="og:url" content="https://nwsmedia.com">
   <meta property="og:image" content="https://nwsmedia.com/og-image.jpg">
   <meta property="og:site_name" content="NWS Media">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NWS Media — We Build What You Imagine">
-  <meta name="twitter:description" content="Luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO.">
+  <meta name="twitter:title" content="NWS Media | Revenue Infrastructure & Market Positioning Agency">
+  <meta name="twitter:description" content="NWS Media builds the systems that make service businesses dominate their market. Infrastructure + Media. Long Island City, NY.">
   <meta name="twitter:image" content="https://nwsmedia.com/og-image.jpg">
 
   <!-- Favicons -->
@@ -66,6 +67,10 @@
     .js .cta-sub,
     .js .cta-btn,
     .js .service-card,
+    .js .service-pill,
+    .js .vertical-card,
+    .js .process-step,
+    .js .differentiator-item,
     .js .work-card,
     .js .pricing-card,
     .js .showreel-heading { visibility: hidden; }
@@ -76,28 +81,37 @@
   <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="styles.css"></noscript>
 
-  <!-- Structured Data — Organization + WebSite -->
+  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["Organization", "LocalBusiness"],
         "@id": "https://nwsmedia.com/#organization",
         "name": "NWS Media",
         "url": "https://nwsmedia.com",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://nwsmedia.com/IMG_8603.PNG",
+          "url": "https://nwsmedia.com/nws-media-logo.png",
           "width": 1024,
           "height": 1024
         },
+        "image": "https://nwsmedia.com/og-image.jpg",
         "email": "info@nwsmedia.com",
-        "description": "Luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO for service businesses.",
-        "areaServed": {
-          "@type": "Country",
-          "name": "US"
+        "description": "Revenue infrastructure and market positioning agency serving contractors, dentists, med spas, attorneys, CPAs, and solar companies across NY, NJ & CT.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Long Island City",
+          "addressRegion": "NY",
+          "addressCountry": "US"
         },
+        "areaServed": [
+          { "@type": "State", "name": "New York" },
+          { "@type": "State", "name": "New Jersey" },
+          { "@type": "State", "name": "Connecticut" }
+        ],
+        "priceRange": "$$$",
         "sameAs": []
       },
       {
@@ -111,8 +125,8 @@
         "@type": "WebPage",
         "@id": "https://nwsmedia.com/#webpage",
         "url": "https://nwsmedia.com",
-        "name": "NWS Media — We Build What You Imagine",
-        "description": "NWS Media is a luxury web design and development agency specializing in custom websites, in-house software, lead scrapers, and local SEO for service businesses.",
+        "name": "NWS Media | Revenue Infrastructure & Market Positioning Agency",
+        "description": "NWS Media builds the systems that make service businesses dominate their market. Infrastructure + Media. Long Island City, NY.",
         "isPartOf": { "@id": "https://nwsmedia.com/#website" },
         "about": { "@id": "https://nwsmedia.com/#organization" }
       },
@@ -122,19 +136,66 @@
       },
       {
         "@type": "Service",
-        "serviceType": "Web Design and Development",
+        "@id": "https://nwsmedia.com/#service-infrastructure",
+        "name": "Revenue Infrastructure",
+        "description": "Custom websites built in Next.js, AI voice agents, lead generation engines, SEO & technical optimization, Google Business Profile management, pipeline infrastructure, and press releases that build lasting authority.",
+        "serviceType": "Business Infrastructure & Consulting",
         "provider": { "@id": "https://nwsmedia.com/#organization" },
-        "areaServed": { "@type": "Country", "name": "US" },
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Web Services",
-          "itemListElement": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Luxury Custom Websites" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "In-House Software Development" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Proprietary Lead Scrapers" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Local SEO & Brand Identity" } }
-          ]
-        }
+        "areaServed": [
+          { "@type": "State", "name": "New York" },
+          { "@type": "State", "name": "New Jersey" },
+          { "@type": "State", "name": "Connecticut" }
+        ],
+        "url": "https://nwsmedia.com/#infrastructure"
+      },
+      {
+        "@type": "Service",
+        "@id": "https://nwsmedia.com/#service-media",
+        "name": "Market Positioning & Media",
+        "description": "Motion graphics and ad creative built for conversion. Paid ads on Meta and Google managed with a single obsession: ROI. Organic content strategy and brand image built for the market you want to own.",
+        "serviceType": "Digital Media & Advertising",
+        "provider": { "@id": "https://nwsmedia.com/#organization" },
+        "areaServed": [
+          { "@type": "State", "name": "New York" },
+          { "@type": "State", "name": "New Jersey" },
+          { "@type": "State", "name": "Connecticut" }
+        ],
+        "url": "https://nwsmedia.com/#media"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What does NWS Media do?",
+            "acceptedAnswer": { "@type": "Answer", "text": "NWS Media is a revenue infrastructure and market positioning agency. We build the technology, automations, content, and ads that fill your pipeline — organized into two branches: Infrastructure (web dev, SEO, AI agents, lead gen) and Media (paid ads, organic growth, content production)." }
+          },
+          {
+            "@type": "Question",
+            "name": "How is NWS Media different from other agencies?",
+            "acceptedAnswer": { "@type": "Answer", "text": "We're operators, not account managers. Every strategy comes from people who've built systems, run ads, and closed clients themselves. We combine infrastructure and media into one engine — because a great ad with a broken funnel is just an expensive lesson." }
+          },
+          {
+            "@type": "Question",
+            "name": "What industries do you serve?",
+            "acceptedAnswer": { "@type": "Answer", "text": "We serve six verticals across NY, NJ & CT: contractors, dentists, med spas, attorneys, CPAs & accountants, and solar companies. We specialize in these industries because focus drives results." }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does it cost to work with NWS Media?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Every engagement starts with a qualification call. Pricing is scoped to your market, your goals, and your growth ceiling. Our Startup tier begins from $3,500, Growth from $8,000, Scale from $15,000, and Enterprise is custom-priced for retainer-based engagements." }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I get started?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Fill out our qualification form. We review every application and reach out within 24 hours if it's a fit. Not every business is ready for NWS Media — we're selective because our results come from focus." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you handle both website development and advertising?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. That's exactly what sets us apart. Infrastructure without media is a ghost town. Media without infrastructure is noise. We build both — and make them work as one compounding system." }
+          }
+        ]
       }
     ]
   }
@@ -158,7 +219,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
   <!-- ═══ CORNER DETAILS ═══ -->
   <div class="corner corner-bl">&copy; 2026 NWS</div>
-  <div class="corner corner-br">&mdash; We Build What You Imagine</div>
+  <div class="corner corner-br">&mdash; Infrastructure + Media</div>
 
   <!-- ═══ LOADER / INTRO OVERLAY ═══ -->
   <div id="loader-overlay">
@@ -168,46 +229,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="loader-char">S</span>
       <div class="loader-accent-line"></div>
     </div>
-    <div class="loader-tagline">Limitless Creation &mdash; We Build What You Imagine</div>
+    <div class="loader-tagline">Revenue Infrastructure &mdash; Market Positioning</div>
   </div>
 
   <main id="main-content">
   <!-- ═══ MORPHING NAVIGATION ═══ -->
   <nav id="pill-nav">
-    <a href="/" class="pill-logo" data-cursor-hover><img src="favicon-32x32.png" alt="NWS Media" class="pill-logo-img" width="32" height="32" fetchpriority="high"></a>
+    <a href="/" class="pill-logo" data-cursor-hover><img src="favicon-32x32.png" alt="NWS Media — Revenue Infrastructure & Market Positioning Agency" class="pill-logo-img" width="32" height="32" fetchpriority="high"></a>
     <ul class="pill-list">
-      <li><a href="#about" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">About</span><span class="pill-label-hover">About</span></span></a></li>
-      <li><a href="#services" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover">Services</span></span></a></li>
-      <li><a href="#advantage" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Edge</span><span class="pill-label-hover">Edge</span></span></a></li>
+      <li><a href="#the-system" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">System</span><span class="pill-label-hover">System</span></span></a></li>
+      <li><a href="#infrastructure" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Services</span><span class="pill-label-hover">Services</span></span></a></li>
+      <li><a href="#difference" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Edge</span><span class="pill-label-hover">Edge</span></span></a></li>
       <li><a href="#pricing" class="pill" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Pricing</span><span class="pill-label-hover">Pricing</span></span></a></li>
     </ul>
-    <a href="book-call.html" class="pill pill-cta" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">Book a Call</span><span class="pill-label-hover">Book a Call</span></span></a>
+    <a href="qualify/" class="pill pill-cta" data-cursor-hover><span class="hover-circle"></span><span class="label-stack"><span class="pill-label">See If You Qualify</span><span class="pill-label-hover">See If You Qualify</span></span></a>
   </nav>
 
   <!-- ═══ HERO SECTION ═══ -->
   <section id="hero">
     <div class="hero-content">
       <div class="hero-eyebrow">
-        <span>NWS Media — Web Design &amp; Development Agency</span>
+        <span>NWS Media &mdash; Revenue Infrastructure &amp; Market Positioning Agency</span>
       </div>
 
       <div class="hero-main">
         <h1 class="hero-headline">
-          Limitless <span class="hero-rotate"><span class="hero-rotate-word">Creation</span><span class="hero-rotate-word">Experiences</span><span class="hero-rotate-word">Software</span><span class="hero-rotate-word">Brands</span><span class="hero-rotate-word">Revenue</span></span><br>
-          We Build What<br>
-          You Imagine.
+          We Build The<br>
+          Systems That Make<br>
+          Your Competitors<br>
+          <span class="hero-accent">Irrelevant.</span>
         </h1>
 
         <div class="hero-bottom">
           <p class="hero-sub">
-            Luxury custom websites, in-house software, and lead generation engines &mdash; engineered for businesses that refuse to blend in.
+            NWS Media is a revenue infrastructure and market positioning agency for service businesses that are done being overlooked. We engineer the technology and media that fills your pipeline &mdash; built to compound, built to dominate.
           </p>
 
           <div class="hero-cta-row">
-            <a href="book-call.html" class="btn-primary" data-cursor-hover>
-              <span>Book a Free Call</span>
+            <a href="qualify/" class="btn-primary" data-cursor-hover>
+              <span>See If You Qualify &rarr;</span>
             </a>
-            <a href="#services" class="btn-ghost" data-cursor-hover>
+            <a href="#infrastructure" class="btn-ghost" data-cursor-hover>
               <span class="arrow-line"></span>
               View Services
             </a>
@@ -219,6 +281,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="hero-scroll-hint">
       <span>Scroll</span>
       <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══ STAT STRIP ═══ -->
+  <section class="stat-strip">
+    <div class="stat-strip-inner">
+      <div class="stat-strip-item">
+        <span class="stat-strip-value">$0 &rarr; $180K+</span>
+        <span class="stat-strip-label">Revenue Generated for Clients</span>
+      </div>
+      <div class="stat-strip-divider"></div>
+      <div class="stat-strip-item">
+        <span class="stat-strip-value">#1 Rankings</span>
+        <span class="stat-strip-label">Delivered Across Competitive Local Markets</span>
+      </div>
+      <div class="stat-strip-divider"></div>
+      <div class="stat-strip-item">
+        <span class="stat-strip-value">10+ Verticals</span>
+        <span class="stat-strip-label">Served Across NY, NJ &amp; CT</span>
+      </div>
     </div>
   </section>
 
@@ -277,270 +359,394 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
   </section>
 
-  <!-- ═══ ABOUT / VALUE (transitions to light) ═══ -->
-  <section id="about" class="value-section">
-    <div class="section-label">— About NWS</div>
+  <!-- ═══ THE SYSTEM (Brand Philosophy) ═══ -->
+  <section id="the-system" class="value-section">
+    <div class="section-label">— The System</div>
     <div class="value-grid">
       <div>
         <h2 class="value-heading">
-          You're Not Just<br>Buying A Website.
+          Two Arms.<br>One Machine.
         </h2>
       </div>
       <div class="value-text">
-        <strong>You're buying the customers that website brings in.</strong>
+        <strong>Most agencies hand you a website and walk away.</strong> We build the engine underneath your business &mdash; the tech stack, the automations, the content, the ads &mdash; and make it all work as one.
         <br><br>
-        We design scroll-driven, interactive websites built to captivate.
-        Custom animations. Immersive UI. Brand-defining design.
-        Every pixel is engineered to convert visitors into paying customers.
+        Infrastructure without media is a ghost town.<br>
+        Media without infrastructure is noise.<br>
+        <strong>Together, they compound.</strong>
         <br><br>
-        From bold visual concepts to animated interfaces, we craft
-        digital experiences that move &mdash; and move people. Your website
-        isn't just a page. <strong>It's your hardest-working sales rep.</strong>
+        This is what we do. This is why it works.
       </div>
     </div>
   </section>
 
-  <!-- ═══ SERVICES (back to dark) ═══ -->
-  <section id="services" class="section">
-    <div class="section-label">— What We Do</div>
+  <!-- ═══ INFRASTRUCTURE (Branch 1) ═══ -->
+  <section id="infrastructure" class="section">
+    <div class="section-label">— Infrastructure</div>
     <h2 class="section-heading section-heading--wide">
-      Built For Businesses That Demand More.
+      The Foundation Your Business Runs On.
     </h2>
-
-    <div class="services-grid">
-      <!-- MagicBento Service Cards -->
-      <div class="service-card magic-bento" data-cursor-hover>
-        <div class="bento-spotlight"></div>
-        <div class="bento-border-glow"></div>
-        <div class="service-number">01</div>
-        <h3 class="service-title">Luxury Custom Websites</h3>
-        <p class="service-desc">
-          Scroll-driven, immersive websites with custom GSAP animations,
-          parallax effects, and editorial-grade typography. No templates.
-          No compromises. Built from scratch to define your brand.
-        </p>
-      </div>
-
-      <div class="service-card magic-bento" data-cursor-hover>
-        <div class="bento-spotlight"></div>
-        <div class="bento-border-glow"></div>
-        <div class="service-number">02</div>
-        <h3 class="service-title">In-House Software</h3>
-        <p class="service-desc">
-          Custom dashboards, booking systems, client portals, and internal
-          tools. We build the software your business needs but can't find
-          off-the-shelf. Tailored. Scalable. Yours.
-        </p>
-      </div>
-
-      <div class="service-card magic-bento" data-cursor-hover>
-        <div class="bento-spotlight"></div>
-        <div class="bento-border-glow"></div>
-        <div class="service-number">03</div>
-        <h3 class="service-title">Proprietary Lead Scrapers</h3>
-        <p class="service-desc">
-          AI-powered lead generation engines that find, qualify, and deliver
-          your ideal prospects on autopilot. Built with Puppeteer, Python,
-          and custom algorithms. Your pipeline, automated.
-        </p>
-      </div>
-
-      <div class="service-card magic-bento" data-cursor-hover>
-        <div class="bento-spotlight"></div>
-        <div class="bento-border-glow"></div>
-        <div class="service-number">04</div>
-        <h3 class="service-title">Local SEO &amp; Brand Identity</h3>
-        <p class="service-desc">
-          Dominate your local market with technical SEO, Google Business
-          optimization, citation building, and a cohesive brand identity
-          that makes your competitors look invisible.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ COMPETITIVE ADVANTAGE ═══ -->
-  <section id="advantage" class="section">
-    <div class="section-label">— Our Moat</div>
-    <h2 class="section-heading section-heading--wide">
-      We Don't Guess. We Audit, Prove, & Execute.
-    </h2>
-    <p class="section-body" style="margin-top: -1rem; margin-bottom: 3rem; max-width: 800px;">
-      We don't just pitch a new design. We analyze your current digital footprint, benchmark it against local competitors, and show you exactly where you're leaving money on the table before you ever sign a contract.
+    <p class="section-body">
+      Custom websites built in Next.js. Software that automates what slows you down. AI voice agents that work while you sleep. Lead generation engines wired directly into your pipeline. SEO that earns you position, not just traffic. Google Business optimization that makes you the obvious choice. Press releases and blog content that build lasting authority.
+    </p>
+    <p class="section-body" style="margin-top: 1.5rem; font-weight: 500; color: var(--foreground); letter-spacing: 0.05em;">
+      No templates. No WordPress. No shortcuts.
     </p>
 
-    <div class="works-grid">
-      <div class="work-card magic-bento work-card-wide" data-cursor-hover>
+    <div class="service-pills">
+      <span class="service-pill">Custom Web Development</span>
+      <span class="service-pill">Custom Software</span>
+      <span class="service-pill">AI Voice Agents</span>
+      <span class="service-pill">Lead Generation Systems</span>
+      <span class="service-pill">SEO &amp; Technical Optimization</span>
+      <span class="service-pill">Google Business Profile Management</span>
+      <span class="service-pill">Pipeline Infrastructure</span>
+      <span class="service-pill">Press Releases &amp; Blog Authority</span>
+      <span class="service-pill">Consulting</span>
+    </div>
+  </section>
+
+  <!-- ═══ MEDIA (Branch 2) ═══ -->
+  <section id="media" class="section">
+    <div class="section-label">— Media</div>
+    <h2 class="section-heading section-heading--wide">
+      The Signal That Gets You Found.
+    </h2>
+    <p class="section-body">
+      Motion graphics and ad creative built for conversion &mdash; not just attention. Paid ads on Meta and Google managed with a single obsession: ROI. Organic content strategy and brand image built for the market you want to own.
+    </p>
+    <p class="section-body" style="margin-top: 1.5rem; font-weight: 500; color: var(--foreground); letter-spacing: 0.05em;">
+      We don't post for likes. We post for pipeline.
+    </p>
+
+    <div class="service-pills">
+      <span class="service-pill">Motion Graphics &amp; Ad Creative</span>
+      <span class="service-pill">Meta Ads Management</span>
+      <span class="service-pill">Google Ads Management</span>
+      <span class="service-pill">Organic Growth Strategy</span>
+      <span class="service-pill">Brand Image &amp; Positioning</span>
+      <span class="service-pill">Content Production</span>
+    </div>
+  </section>
+
+  <!-- ═══ VERTICALS (Who We Work With) ═══ -->
+  <section id="verticals" class="section">
+    <div class="section-label">— Who We Work With</div>
+    <h2 class="section-heading section-heading--wide">
+      Built For Businesses That Move Fast And Expect Results.
+    </h2>
+
+    <div class="verticals-grid">
+      <div class="vertical-card magic-bento" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
-        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
-          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">01</div>
-          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Audit-First Engineering</h3>
-          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
-            Before we write a single line of code, we run a diagnostic on your current digital presence. We analyze PageSpeed, SEO gaps, and Core Web Vitals to show you the exact metrics holding you back. We compete on evidence, not vague promises.
-          </p>
-        </div>
+        <h3 class="vertical-title">Contractors</h3>
+        <p class="vertical-desc">More estimates. Better projects. Dominate your service area before your competitor logs in tomorrow.</p>
       </div>
 
-      <div class="work-card magic-bento" data-cursor-hover>
+      <div class="vertical-card magic-bento" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
-        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
-          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">02</div>
-          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Built To Rank, Day One</h3>
-          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
-            88% of local mobile searchers call or visit within 24 hours. We don't build a site and bolt SEO on later. Your foundation is engineered for Google Page 1 from the start.
-          </p>
-        </div>
+        <h3 class="vertical-title">Dentists</h3>
+        <p class="vertical-desc">Your next patient is on Google right now. We make sure they find you &mdash; and only you.</p>
       </div>
 
-      <div class="work-card magic-bento" data-cursor-hover>
+      <div class="vertical-card magic-bento" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
-        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
-          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">03</div>
-          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Vertical Specialists</h3>
-          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
-            We don't build generic templates. We engineer lead machines specifically for contractors, dentists, and med spas in major metros. We know your job values and your market.
-          </p>
-        </div>
+        <h3 class="vertical-title">Med Spas</h3>
+        <p class="vertical-desc">High-ticket services demand high-trust presence. We build the brand that justifies your prices.</p>
       </div>
 
-      <div class="work-card magic-bento work-card-wide" data-cursor-hover>
+      <div class="vertical-card magic-bento" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
-        <div class="work-info" style="position: relative; z-index: 10; padding: 2rem;">
-          <div class="service-number" style="font-family: var(--font-bebas); font-size: 1.5rem; color: #f0f0f0; margin-bottom: 0.5rem;">04</div>
-          <h3 style="font-family: var(--font-outfit); font-size: 1.5rem; font-weight: 600; color: white; margin-bottom: 1rem;">Owner-Operated Execution</h3>
-          <p style="color: #a1a1aa; font-size: 1rem; line-height: 1.6;">
-            Forget bloated agency overhead or freelancers who disappear after launch. You get direct access to the senior-level talent actually doing the work, ensuring faster decisions and predictable delivery.
-          </p>
-        </div>
+        <h3 class="vertical-title">Attorneys</h3>
+        <p class="vertical-desc">Your firm should rank like you argue &mdash; first. We handle the visibility. You handle the courtroom.</p>
+      </div>
+
+      <div class="vertical-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <h3 class="vertical-title">CPAs &amp; Accountants</h3>
+        <p class="vertical-desc">Most CPA firms are invisible online. We fix that &mdash; and keep you booked through tax season and beyond.</p>
+      </div>
+
+      <div class="vertical-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <h3 class="vertical-title">Solar Companies</h3>
+        <p class="vertical-desc">The lead funnel is broken for most solar companies. We rebuild it from scratch with infrastructure that scales.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ PRICING (transitions to light) ═══ -->
+  <!-- ═══ PROCESS (How It Works) ═══ -->
+  <section id="process" class="section">
+    <div class="section-label">— How It Works</div>
+    <h2 class="section-heading section-heading--wide">
+      From Invisible To Inevitable In 4 Steps.
+    </h2>
+
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-number">01</div>
+        <h3 class="process-title">Qualify</h3>
+        <p class="process-desc">Not every business is ready for NWS Media. Fill out the qualification form. We'll review it and reach out within 24 hours if it's a fit.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-number">02</div>
+        <h3 class="process-title">Diagnose</h3>
+        <p class="process-desc">A strategy call where we audit your current digital presence, identify your biggest revenue leaks, and map out exactly what needs to change.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-number">03</div>
+        <h3 class="process-title">Build</h3>
+        <p class="process-desc">We build your system &mdash; infrastructure, media, or both &mdash; on a timeline you approve, with milestones you can track.</p>
+      </div>
+
+      <div class="process-step">
+        <div class="process-number">04</div>
+        <h3 class="process-title">Dominate</h3>
+        <p class="process-desc">Go live. Rank. Convert. We track results, optimize continuously, and report on ROI &mdash; not vanity metrics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRICING ═══ -->
   <section id="pricing" class="section">
     <div class="section-label">— Investment</div>
     <h2 class="section-heading section-heading--wide">
-      Choose Your Tier.
+      We Don't Race To The Bottom. Neither Should You.
     </h2>
     <p class="section-body">
-      Every tier includes strategy, design, development, and deployment.
-      No hidden fees. No scope creep. Just results.
-    </p>
-    <p class="section-body" style="margin-top: 2rem; font-weight: 500; color: var(--foreground); letter-spacing: 0.05em;">
-      Pricing starts from the following
+      Every engagement starts with a qualification call. Pricing is scoped to your market, your goals, and your growth ceiling.
     </p>
 
-    <div class="pricing-grid">
+    <div class="pricing-grid pricing-grid--four">
       <div class="pricing-card magic-bento" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
-        <div class="pricing-label">Starter</div>
-        <div class="pricing-name">The Floor</div>
+        <div class="pricing-label">Startup</div>
         <div class="pricing-price">$3,500<span class="pricing-price-suffix">+</span></div>
         <p class="pricing-desc">
-          For businesses ready to step up from a DIY site to a
-          professionally designed web presence.
+          Single-service launch. Get positioned.
         </p>
         <div class="pricing-divider"></div>
-        <ul class="pricing-features">
-          <li class="pricing-feature">5-page custom website</li>
-          <li class="pricing-feature">Mobile-first responsive design</li>
-          <li class="pricing-feature">SEO fundamentals built-in</li>
-          <li class="pricing-feature">Contact form + Google Maps</li>
-          <li class="pricing-feature">1 round of revisions</li>
-        </ul>
-        <a href="book-call.html" class="pricing-btn" data-cursor-hover>Get Started</a>
+        <p class="pricing-best-for">Best for businesses ready to launch a single service and establish their digital presence.</p>
+        <a href="qualify/" class="pricing-btn" data-cursor-hover>Check If You Qualify</a>
       </div>
 
       <div class="pricing-card magic-bento featured" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
-        <div class="pricing-label">Most Popular</div>
-        <div class="pricing-name">The Target</div>
-        <div class="pricing-price">$5,500<span class="pricing-price-suffix">+</span></div>
+        <div class="pricing-label">Growth</div>
+        <div class="pricing-price">$8,000<span class="pricing-price-suffix">+</span></div>
         <p class="pricing-desc">
-          The sweet spot. Full local SEO, scroll animations,
-          and data-backed design decisions.
+          Multi-service build. Infrastructure + Media.
         </p>
         <div class="pricing-divider"></div>
-        <ul class="pricing-features">
-          <li class="pricing-feature">8-12 page custom website</li>
-          <li class="pricing-feature">GSAP scroll-driven animations</li>
-          <li class="pricing-feature">Local SEO strategy + execution</li>
-          <li class="pricing-feature">Website audit data proof</li>
-          <li class="pricing-feature">Google Business optimization</li>
-          <li class="pricing-feature">2 rounds of revisions</li>
-        </ul>
-        <a href="book-call.html" class="pricing-btn" data-cursor-hover>Get Started</a>
+        <p class="pricing-best-for">The sweet spot for businesses ready to combine infrastructure and media into one growth engine.</p>
+        <a href="qualify/" class="pricing-btn" data-cursor-hover>Check If You Qualify</a>
+      </div>
+
+      <div class="pricing-card magic-bento" data-cursor-hover>
+        <div class="bento-spotlight"></div>
+        <div class="bento-border-glow"></div>
+        <div class="pricing-label">Scale</div>
+        <div class="pricing-price">$15,000<span class="pricing-price-suffix">+</span></div>
+        <p class="pricing-desc">
+          Full system. Custom software + ads + SEO + media.
+        </p>
+        <div class="pricing-divider"></div>
+        <p class="pricing-best-for">For businesses serious about dominating their market with a complete infrastructure and media stack.</p>
+        <a href="qualify/" class="pricing-btn" data-cursor-hover>Check If You Qualify</a>
       </div>
 
       <div class="pricing-card magic-bento" data-cursor-hover>
         <div class="bento-spotlight"></div>
         <div class="bento-border-glow"></div>
         <div class="pricing-label">Enterprise</div>
-        <div class="pricing-name">The High-End</div>
-        <div class="pricing-price">$9,000<span class="pricing-price-suffix">+</span></div>
+        <div class="pricing-price">Custom</div>
         <p class="pricing-desc">
-          For businesses with complex needs, multiple locations,
-          or high-volume booking requirements.
+          Retainer-based. Ongoing dominance. White-glove.
         </p>
         <div class="pricing-divider"></div>
-        <ul class="pricing-features">
-          <li class="pricing-feature">Unlimited pages + custom CMS</li>
-          <li class="pricing-feature">Booking system integration</li>
-          <li class="pricing-feature">Multi-location SEO</li>
-          <li class="pricing-feature">Lead scraper setup</li>
-          <li class="pricing-feature">Custom software development</li>
-          <li class="pricing-feature">Priority support + 3 revisions</li>
-        </ul>
-        <a href="book-call.html" class="pricing-btn" data-cursor-hover>Get Started</a>
+        <p class="pricing-best-for">For established businesses that need a dedicated growth partner on an ongoing retainer basis.</p>
+        <a href="qualify/" class="pricing-btn" data-cursor-hover>Check If You Qualify</a>
       </div>
+    </div>
+
+    <p class="section-body" style="margin-top: 3rem; font-size: 12px; color: var(--muted-foreground); max-width: 600px;">
+      All tiers are project-first or retainer-based. Ad spend is not included in management fees. We scope every deal to ROI &mdash; not hours.
+    </p>
+  </section>
+
+  <!-- ═══ THE DIFFERENCE (Why NWS Media) ═══ -->
+  <section id="difference" class="section">
+    <div class="section-label">— The Difference</div>
+    <h2 class="section-heading section-heading--wide">
+      You've Tried The Other Agencies. Here's Why This Is Different.
+    </h2>
+
+    <div class="differentiator-list">
+      <div class="differentiator-item">
+        <div class="differentiator-number">01</div>
+        <div class="differentiator-content">
+          <h3 class="differentiator-title">We're operators, not account managers.</h3>
+          <p class="differentiator-desc">Every strategy comes from people who've built systems, run ads, and closed clients themselves.</p>
+        </div>
+      </div>
+
+      <div class="differentiator-item">
+        <div class="differentiator-number">02</div>
+        <div class="differentiator-content">
+          <h3 class="differentiator-title">Infrastructure + Media, never siloed.</h3>
+          <p class="differentiator-desc">Most agencies do one or the other. We build the full engine &mdash; because a great ad with a broken funnel is just an expensive lesson.</p>
+        </div>
+      </div>
+
+      <div class="differentiator-item">
+        <div class="differentiator-number">03</div>
+        <div class="differentiator-content">
+          <h3 class="differentiator-title">We don't work with everyone.</h3>
+          <p class="differentiator-desc">Our results come from focus. We serve six verticals, three states, and a limited roster of clients at any given time.</p>
+        </div>
+      </div>
+
+      <div class="differentiator-item">
+        <div class="differentiator-number">04</div>
+        <div class="differentiator-content">
+          <h3 class="differentiator-title">ROI is the only metric that matters.</h3>
+          <p class="differentiator-desc">We report on leads, revenue, and rank &mdash; never impressions.</p>
+        </div>
+      </div>
+
+      <div class="differentiator-item">
+        <div class="differentiator-number">05</div>
+        <div class="differentiator-content">
+          <h3 class="differentiator-title">No bloat. No account managers.</h3>
+          <p class="differentiator-desc">You work with the people building your system. Not a ticketing portal.</p>
+        </div>
+      </div>
+
+      <div class="differentiator-item">
+        <div class="differentiator-number">06</div>
+        <div class="differentiator-content">
+          <h3 class="differentiator-title">We build for longevity.</h3>
+          <p class="differentiator-desc">SEO, content authority, and proprietary lead infrastructure don't evaporate when you pause an ad budget. We build assets, not dependencies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section id="faq" class="section">
+    <div class="section-label">— Frequently Asked Questions</div>
+    <h2 class="section-heading section-heading--wide">
+      Common Questions About Working With Us.
+    </h2>
+
+    <div class="faq-grid">
+      <details class="faq-item" open>
+        <summary class="faq-question">What does NWS Media do?</summary>
+        <div class="faq-answer">
+          NWS Media is a revenue infrastructure and market positioning agency. We build the technology, automations, content, and ads that fill your pipeline &mdash; organized into two branches: Infrastructure (web dev, SEO, AI agents, lead gen, consulting) and Media (paid ads, organic growth, content production). Everything works as one system.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">How is NWS Media different from other agencies?</summary>
+        <div class="faq-answer">
+          We're operators, not account managers. Every strategy comes from people who've built systems, run ads, and closed clients themselves. We combine infrastructure and media into one engine &mdash; because a great ad with a broken funnel is just an expensive lesson. You work directly with the people building your system.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">What industries do you serve?</summary>
+        <div class="faq-answer">
+          We serve six verticals across NY, NJ &amp; CT: contractors, dentists, med spas, attorneys, CPAs &amp; accountants, and solar companies. We specialize in these industries because focus drives results &mdash; we know your market, your customers, and your competition.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">How much does it cost to work with NWS Media?</summary>
+        <div class="faq-answer">
+          Every engagement starts with a qualification call. Pricing is scoped to your market, your goals, and your growth ceiling. Our Startup tier begins from $3,500, Growth from $8,000, Scale from $15,000, and Enterprise is custom-priced for retainer-based engagements. Ad spend is not included in management fees.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">How do I get started?</summary>
+        <div class="faq-answer">
+          Fill out our qualification form. We review every application and reach out within 24 hours if it's a fit. From there, we schedule a strategy call to diagnose your current digital presence, identify revenue leaks, and map out exactly what needs to change. Not every business is ready for NWS Media &mdash; we're selective because our results come from focus.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-question">Do you handle both website development and advertising?</summary>
+        <div class="faq-answer">
+          Yes &mdash; that's exactly what sets us apart. Infrastructure without media is a ghost town. Media without infrastructure is noise. We build both and make them work as one compounding system. From custom Next.js websites and AI voice agents to Meta/Google ads and organic growth strategy, it all connects.
+        </div>
+      </details>
     </div>
   </section>
 
   <!-- ═══ FINAL CTA (back to dark) ═══ -->
   <section class="cta-section">
     <h2 class="cta-heading">
-      Ready To Build<br>Something Real?
+      If You're Serious<br>About Growth,<br>We Need To Talk.
     </h2>
     <p class="cta-sub">
-      Stop losing customers to a website that doesn't convert. Let's build one that does.
+      We're selective. We work with businesses that are ready to scale &mdash; not just curious about marketing. Fill out the form and find out if we're a fit.
     </p>
-    <a href="book-call.html" class="cta-btn" data-cursor-hover>
-      <span>Book Your Free Discovery Call</span>
+    <a href="qualify/" class="cta-btn" data-cursor-hover>
+      <span>Apply to Work with NWS Media &rarr;</span>
     </a>
+    <p class="cta-location">Long Island City, NY &middot; Serving NY, NJ &amp; CT &middot; nwsmedia.com</p>
   </section>
 
   <!-- ═══ FOOTER ═══ -->
   <footer class="site-footer">
     <div class="footer-top">
       <div class="footer-brand">
-        <div class="footer-logo"><img src="favicon-32x32.png" alt="NWS Media" class="footer-logo-img" loading="lazy" width="32" height="32"></div>
-        <p class="footer-tagline">Limitless Creation — We Build What You Imagine.</p>
-        <a href="book-call.html" class="footer-contact-btn" data-cursor-hover>Contact Us</a>
+        <div class="footer-logo"><img src="favicon-32x32.png" alt="NWS Media — Revenue Infrastructure & Market Positioning Agency" class="footer-logo-img" loading="lazy" width="32" height="32"></div>
+        <p class="footer-tagline">Revenue Infrastructure &amp; Market Positioning.</p>
+        <a href="qualify/" class="footer-contact-btn" data-cursor-hover>Apply to Work With Us</a>
       </div>
 
       <div class="footer-columns">
         <div class="footer-col">
           <div class="footer-col-title">Services</div>
           <ul class="footer-col-list">
-            <li><a href="#services">Custom Websites</a></li>
-            <li><a href="#services">In-House Software</a></li>
-            <li><a href="#services">Lead Scrapers</a></li>
-            <li><a href="#services">Local SEO</a></li>
-            <li><a href="/qualify">Qualify</a></li>
+            <li><a href="#infrastructure">Infrastructure</a></li>
+            <li><a href="#media">Media</a></li>
+            <li><a href="#infrastructure">Web Development</a></li>
+            <li><a href="#infrastructure">SEO</a></li>
+            <li><a href="#infrastructure">AI Voice Agents</a></li>
+            <li><a href="#infrastructure">Lead Generation</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Verticals</div>
+          <ul class="footer-col-list">
+            <li><a href="#verticals">Contractors</a></li>
+            <li><a href="#verticals">Dentists</a></li>
+            <li><a href="#verticals">Med Spas</a></li>
+            <li><a href="#verticals">Attorneys</a></li>
+            <li><a href="#verticals">CPAs</a></li>
+            <li><a href="#verticals">Solar</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <div class="footer-col-title">Company</div>
           <ul class="footer-col-list">
-            <li><a href="#about">About Us</a></li>
+            <li><a href="#the-system">About</a></li>
             <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#advantage">Our Edge</a></li>
+            <li><a href="qualify/">Qualify</a></li>
+            <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -549,13 +755,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
             <li><a href="terms-of-service.html">Terms of Service</a></li>
             <li><a href="sitemap.html">Sitemap</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <div class="footer-col-title">Contact</div>
-          <ul class="footer-col-list">
             <li><a href="mailto:info@nwsmedia.com">info@nwsmedia.com</a></li>
-            <li><span class="footer-col-text">New York, NY</span></li>
+            <li><span class="footer-col-text">Long Island City, NY</span></li>
           </ul>
         </div>
       </div>
